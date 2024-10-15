@@ -1,4 +1,6 @@
 import React from 'react';
+import './card.scss';
+import '../variables.scss';
 
 interface CardProps {
   title: string;

@@ -1,0 +1,8 @@
+@use '../mixin.scss';
+@use '../variables.scss';
+
+.card-container {
+  background-color: #fafafa;
+  @include mixin.idents(5px);
+  border-radius: variables.$items-border-radius;
+}

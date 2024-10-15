@@ -1,0 +1,4 @@
+@mixin idents ($property) {
+  margin: $property;
+  padding: $property;
+}
