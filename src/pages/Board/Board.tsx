@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
-
-interface TitleProps {
-  title: string;
-}
-
-interface ListProps {
-  id: number;
-  title: string;
-  cards: { id: number; title: string }[];
-}
+import './board.scss';
+import { List } from './components/List/List';
+import { IList } from '../../common/interfaces/IList';
 
 export function Board(): React.ReactElement {
-  const boardTitle = { title: 'Моя тестова дошка' };
+  const boardTitle = 'Моя тестова дошка';
   const boardLists = [
     {
       id: 1,
@@ -37,9 +30,24 @@ export function Board(): React.ReactElement {
     },
   ];
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [title, setTitle] = useState<TitleProps>(boardTitle);
+  const [title, setTitle] = useState(boardTitle);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [lists, setLists] = useState<ListProps[]>(boardLists);
+  const [lists, setLists] = useState<IList[]>(boardLists);
 
-  return <div>{title.title}</div>;
+  return (
+    <div className="board-container">
+      <div className="nav-bar">
+        <h1>{title}</h1>
+      </div>
+      <div className="lists">
+        {lists.map((list) => (
+          <div key={list.id}>
+            <List title={list.title} cards={list.cards} />
+          </div>
+        ))}
+      </div>
+
+      <button>Create List</button>
+    </div>
+  );
 }
