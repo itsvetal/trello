@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+import './styles/App.css';
 import { Board } from './pages/Board/Board';
-import { ReactPage } from './pages/React/ReactPage';
+import { ReactPage } from './pages/Main/ReactPage';
 
 function App(): React.ReactElement {
   return (

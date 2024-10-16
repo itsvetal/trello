@@ -1,10 +1,63 @@
+@use "../../styles/mixin";
+@use "../../styles/variables";
+@import "../../styles/fonts";
 
-.board-container {
-  background-image: linear-gradient(to right, #9900FF, #8abdff, #FF00FF);
+.wrapper {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom right, variables.$board-color-1, variables.$board-color-2, variables.$board-color-3, variables.$board-color-4);
+  background-size: cover;
+  background-position: center;
+  @extend %default-font;
 
-  .lists {
+  h1 {
+    @extend %h1-font;
+  }
+
+  h2 {
+    @extend %h2-font;
+  }
+
+  span {
+    @extend %span-font;
+  }
+
+  .nav-bar {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
 
+
+    .nav-bar__title {
+      color: white;
+      background-color: variables.$nav-bar-bg-color;
+      @include mixin.container(10px, 5px);
+    }
   }
+
+  .create-list-button {
+    height: 40px;
+    font-size: 16px;
+    margin-right: 10px;
+    @include mixin.configure-button(variables.$nav-bar-bg-color, white, 5px, 2px, 2px, black);
+  }
+
+  .create-list-button:active {
+    @include mixin.active-button(0, 0, 2px,2px);
+  }
+
+  .lists {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto; /* Горизонтальний скрол */
+    white-space: nowrap; /* Запобігання перенесенню елементів */
+  }
+}
+
+footer {
+  flex-shrink: 0;
 }

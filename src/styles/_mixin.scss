@@ -1,0 +1,20 @@
+@mixin container ($property_1, $property_2) {
+  margin: $property_1;
+  padding: $property_2;
+  border-radius: $property_1;
+}
+
+@mixin configure-button ($bg-color, $color, $radius, $shadowX, $shadowY, $sh-color) {
+  background-color: $bg-color;
+  color: $color;
+  border-radius: $radius;
+  box-shadow: $shadowX $shadowY $sh-color;
+  border: none;
+  cursor: pointer;
+}
+
+@mixin active-button($shadowX, $shadowY, $translateX, $translateY) {
+  box-shadow: $shadowX $shadowY;
+  transform: translate($translateX, $translateY);
+}
+
