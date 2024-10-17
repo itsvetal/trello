@@ -6,7 +6,7 @@ import { ReactPage } from './pages/Main/ReactPage';
 
 function App(): React.ReactElement {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/trello">
       <Routes>
         <Route path="/" element={<ReactPage />} />
         <Route path="/board" element={<Board />} />
