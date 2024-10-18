@@ -1,0 +1,8 @@
+@use "src/styles/_mixin";
+@import "src/styles/extend";
+.home-board {
+  @extend %container-style;
+  min-height: 100px;
+  width: 250px;
+
+}

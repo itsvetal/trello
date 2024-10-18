@@ -26,6 +26,14 @@ export function Board(): React.ReactElement {
       cards: [
         { id: 5, title: 'зробити домашку' },
         { id: 6, title: 'погуляти з собакой' },
+        { id: 5, title: 'зробити домашку' },
+        { id: 6, title: 'погуляти з собакой' },
+        { id: 5, title: 'зробити домашку' },
+        { id: 6, title: 'погуляти з собакой' },
+        { id: 5, title: 'зробити домашку' },
+        { id: 6, title: 'погуляти з собакой' },
+        { id: 5, title: 'зробити домашку' },
+        { id: 6, title: 'погуляти з собакой' },
       ],
     },
     {
@@ -72,9 +80,7 @@ export function Board(): React.ReactElement {
       </nav>
       <section className="lists">
         {lists.map((list) => (
-          <div key={list.id}>
-            <List title={list.title} cards={list.cards} />
-          </div>
+          <List key={list.id * Math.random()} title={list.title} cards={list.cards} />
         ))}
       </section>
       <footer className="footer" />

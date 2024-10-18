@@ -3,6 +3,6 @@
 
 .card-container {
   background-color: variables.$card-bg-color;
-  @include mixin.container(10px, 10px);
+  @include mixin.container(10px, 10px, 10px);
   box-shadow: 1px 2px gray;
 }

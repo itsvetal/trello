@@ -1,0 +1,9 @@
+@use 'src/styles/mixin';
+
+.add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include mixin.configure-button(transparent, black, 0, 0, 0, transparent);
+}
+

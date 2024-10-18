@@ -1,3 +1,6 @@
+@use './_variables';
+@use './mixin';
+
 %default-font {
   font-family: "Cormorant", 'Times New Roman', 'Tahoma', sans-serif;
   font-style: italic;
@@ -21,4 +24,16 @@
 
 %span-font {
   font-family: "ABeeZee", "Times New Roman", "Tahoma", sans-serif;
+  font-size: 16px;
+}
+
+%background {
+  background-image: linear-gradient(to bottom right, variables.$board-color-1, variables.$board-color-2, variables.$board-color-3, variables.$board-color-4);
+  background-size: cover;
+  background-position: center;
+}
+
+%container-style {
+  @include mixin.container(10px, 10px, 5px);
+  box-shadow: 5px 7px 8px black;
 }

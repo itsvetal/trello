@@ -1,0 +1,24 @@
+@import '../../styles/_extend';
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  @extend %background;
+  @extend %default-font;
+  @extend %h2-font;
+  color: #fafafa;
+
+  .home-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    flex-wrap: wrap;
+    color: lightgray;
+  }
+
+  .home-footer{
+    flex-shrink: 0;
+  }
+}

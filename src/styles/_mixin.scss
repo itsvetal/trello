@@ -1,7 +1,7 @@
-@mixin container ($property_1, $property_2) {
-  margin: $property_1;
-  padding: $property_2;
-  border-radius: $property_1;
+@mixin container ($margin, $padding, $radius) {
+  margin: $margin;
+  padding: $padding;
+  border-radius: $radius;
 }
 
 @mixin configure-button ($bg-color, $color, $radius, $shadowX, $shadowY, $sh-color) {
