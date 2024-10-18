@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Board } from './components/Board/Board';
 import './home.scss';
+import { AddButton } from '../../components/AddButton/AddButton';
 
 export function Home(): React.ReactElement {
   const dataBoards = {
@@ -26,6 +27,9 @@ export function Home(): React.ReactElement {
         {boards.boards.map((board) => (
           <Board title={board.title} custom={board.custom} key={board.id} />
         ))}
+        <Board>
+          <AddButton label="add board" />
+        </Board>
       </section>
       <footer className="home-footer" />
     </div>

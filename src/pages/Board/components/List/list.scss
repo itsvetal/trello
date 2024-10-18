@@ -15,10 +15,4 @@
   .list-title {
     margin: 10px;
   }
-
-  .add-card-button button:active {
-    @include mixin.active-button(0, 0, 1px, 1px);
-
-  }
-
 }

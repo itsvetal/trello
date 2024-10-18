@@ -1,9 +1,15 @@
-@use 'src/styles/mixin';
+@use '../../styles/mixin';
+@import "src/styles/extend";
 
 .add-button {
   display: flex;
   flex-direction: row;
   align-items: center;
   @include mixin.configure-button(transparent, black, 0, 0, 0, transparent);
+  @extend %span-font;
+
+  &:active {
+    @include mixin.active-button(0, 0, 1px, 1px);
+  }
 }
 

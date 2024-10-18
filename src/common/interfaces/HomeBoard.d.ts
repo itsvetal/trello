@@ -1,4 +1,7 @@
+import React from 'react';
+
 export interface HomeBoard {
-  title: string;
-  custom: { [key: string]: string };
+  children?: React.ReactNode;
+  title?: string;
+  custom?: { [key: string]: string };
 }

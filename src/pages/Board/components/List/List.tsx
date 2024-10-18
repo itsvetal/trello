@@ -2,7 +2,7 @@ import React from 'react';
 import './list.scss';
 import { ListProps } from '../../../../common/interfaces/ListProps';
 import { Card } from '../Card/Card';
-import { AddButton } from '../../../components/AddButton/AddButton';
+import { AddButton } from '../../../../components/AddButton/AddButton';
 
 export function List({ title, cards }: ListProps): React.ReactElement {
   return (
