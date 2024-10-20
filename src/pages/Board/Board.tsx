@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './board.scss';
+import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import { IList } from '../../common/interfaces/IList';
 
@@ -65,12 +66,13 @@ export function Board(): React.ReactElement {
   const [title, setTitle] = useState(boardTitle);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lists, setLists] = useState<IList[]>(boardLists);
+  const { boardId } = useParams();
 
   return (
     <div className="wrapper">
       <nav className="nav-bar">
         <div className="nav-bar__title">
-          <h1>{title}</h1>
+          <h1>{`${title}: ${boardId}`}</h1>
         </div>
         <div>
           <button className="create-list-button">

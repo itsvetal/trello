@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
 import './home.scss';
 import { AddButton } from '../../components/AddButton/AddButton';
@@ -10,9 +11,9 @@ export function Home(): React.ReactElement {
       { id: 2, title: 'підготовка до весілля', custom: { background: 'green' } },
       { id: 3, title: 'розробка інтернет-магазину', custom: { background: 'blue' } },
       { id: 4, title: 'курс по просуванню у соцмережах', custom: { background: 'grey' } },
-      { id: 3, title: 'відпочинок', custom: { background: 'aqua' } },
-      { id: 3, title: 'обслуговування автомобіля', custom: { background: 'brown' } },
-      { id: 3, title: 'пошук роботи', custom: { background: 'cornsilk' } },
+      { id: 5, title: 'відпочинок', custom: { background: 'aqua' } },
+      { id: 6, title: 'обслуговування автомобіля', custom: { background: 'brown' } },
+      { id: 7, title: 'пошук роботи', custom: { background: 'cornsilk' } },
     ],
   };
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -25,7 +26,9 @@ export function Home(): React.ReactElement {
       </header>
       <section className="home-section">
         {boards.boards.map((board) => (
-          <Board title={board.title} custom={board.custom} key={board.id} />
+          <Link to={`/board/${board.id}`} key={board.id}>
+            <Board title={board.title} custom={board.custom} />
+          </Link>
         ))}
         <Board>
           <AddButton label="add board" />
