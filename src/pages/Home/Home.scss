@@ -9,6 +9,11 @@
   @extend %default-font;
   @extend %h2-font;
   color: #fafafa;
+  text-align: center;
+
+  .error-text {
+    color: red;
+  }
 
   .home-section {
     display: flex;

@@ -1,60 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import axios, { AxiosResponse } from 'axios';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
-import './home.scss';
-import { AddButton } from '../../components/AddButton/AddButton';
-import instance from '../../api/request';
-
-interface BoardProps {
-  id: number;
-  title: string;
-  custom: { [key: string]: string };
-}
-
-interface ArrBoardsProps {
-  boards: BoardProps[];
-}
+import './Home.scss';
+import CreateBoard from './components/CreateBoard/CreateBoard';
+import { IBoard } from '../../common/interfaces/IBoards';
+import { useHome } from '../../hooks/homeHooks';
+import Loader from '../../components/Loader/Loader';
+import Error from '../../components/Error/Error';
+import Modal from './components/Modal/Modal';
 
 export function Home(): React.ReactElement {
-  const getBoards = async (): Promise<AxiosResponse<ArrBoardsProps>> => {
-    try {
-      return await instance.get('/board');
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        throw new Error(error.response?.data?.message);
-      }
-      throw error;
-    }
-  };
-  const [items, setItems] = useState<ArrBoardsProps | null>(null);
-  const [error, setError] = useState();
-  useEffect(() => {
-    getBoards()
-      .then((response) => setItems(response.data))
-      .catch((err) => setError(err));
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  const { items, loading, error } = useHome();
 
   return (
     <div className="home-container">
       <header className="home-header">
         <h1>Мої дошки</h1>
+        {loading && <Loader />}
+        {error && <Error error={error} />}
       </header>
       <section className="home-section">
-        {items?.boards.map((board: BoardProps) => (
+        {items?.boards.map((board: IBoard) => (
           <Link to={`/board/${board.id}`} key={board.id}>
             <Board title={board.title} custom={board.custom} />
           </Link>
         ))}
-        <Board>
-          <AddButton label="add board" />
-        </Board>
+        <CreateBoard />
       </section>
       <footer className="home-footer" />
+      <Modal />
     </div>
   );
 }

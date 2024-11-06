@@ -1,8 +1,8 @@
 import React from 'react';
-import './board.scss';
+import './Board.scss';
 import { HomeBoard } from '../../../../common/interfaces/HomeBoard';
 
-export function Board({ children, title, custom }: HomeBoard): React.ReactElement {
+export function Board({ title, custom }: HomeBoard): React.ReactElement {
   return (
     <div
       className="home-board"
@@ -10,7 +10,7 @@ export function Board({ children, title, custom }: HomeBoard): React.ReactElemen
         backgroundColor: custom?.background,
       }}
     >
-      {title || children}
+      {title}
     </div>
   );
 }
