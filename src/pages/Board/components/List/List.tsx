@@ -1,5 +1,5 @@
 import React from 'react';
-import './list.scss';
+import './List.scss';
 import { ListProps } from '../../../../common/interfaces/ListProps';
 import { Card } from '../Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';

@@ -1,5 +1,5 @@
-@use 'mixin';
-@import "extend";
+@use '../../styles/mixin';
+@import "../../styles/extend";
 
 .add-button {
   display: flex;

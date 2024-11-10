@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './board.scss';
+import './Board.scss';
 import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import { IList } from '../../common/interfaces/IList';
