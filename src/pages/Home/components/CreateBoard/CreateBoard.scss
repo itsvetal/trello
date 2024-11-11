@@ -1,0 +1,11 @@
+@use "src/styles/mixin";
+
+  .create-board-container:hover {
+    color: chartreuse;
+    background-color: #6600ff;
+
+    svg {
+      fill: chartreuse;
+    }
+  }
+

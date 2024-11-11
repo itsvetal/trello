@@ -1,9 +1,21 @@
 @use "src/styles/_mixin";
 @import "src/styles/extend";
 .home-board {
-  @extend %container-style;
   min-height: 100px;
   width: 250px;
-  color: #fafafa;
+  cursor: pointer;
+  @extend %container-style;
+  @include mixin.flex(flex, column, center, center);
+}
 
+.home-board:hover {
+  box-shadow: 5px 7px 8px black, 7px 9px 50px white;
+}
+
+.home-board:active {
+  @include mixin.active-button(0, 0, 50px, white, 0, 2px);
+}
+
+.home-board__content {
+  @include mixin.flex(flex, row, center,center);
 }

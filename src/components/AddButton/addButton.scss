@@ -9,7 +9,7 @@
   @extend %span-font;
 
   &:active {
-    @include mixin.active-button(0, 0, 1px, 1px);
+    @include mixin.active-button(0, 0, 0, transparent, 1px, 1px);
   }
 }
 

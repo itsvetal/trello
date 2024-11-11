@@ -43,7 +43,7 @@
   }
 
   .create-list-button:active {
-    @include mixin.active-button(0, 0, 2px,2px);
+    @include mixin.active-button(0, 0, 0, transparent, 2px,2px);
   }
 
   .lists {

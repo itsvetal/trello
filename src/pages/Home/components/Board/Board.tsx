@@ -19,7 +19,7 @@ export function Board({ title, custom }: IBoard): React.ReactElement {
       className="home-board"
       style={{
         backgroundColor: value,
-        color: r >= 220 && g >= 220 && b >= 220 ? 'black' : `white`,
+        color: r >= 200 && g >= 200 && b >= 200 ? 'black' : `white`,
       }}
     >
       {title}

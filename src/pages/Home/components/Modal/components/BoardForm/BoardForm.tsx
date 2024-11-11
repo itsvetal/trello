@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './BoardFom.scss';
 import { IBoard } from '../../../../../../common/interfaces/IBoards';
 import { postBoard } from '../../../../../../api/board/postBoard';
-import { deleteBoard } from '../../../../../../api/board/deleteBoard';
 import Error from '../../../../../../components/Error/Error';
 
 interface BoardFormProps {
@@ -16,6 +15,8 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
+
+    setError('');
 
     const isValid = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9 ._-]+$/.test(title);
 
@@ -36,35 +37,30 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
 
     postBoard('/board', data)
       .then((response) => {
-        return response.result;
-      })
-      .then((result) => {
-        onCardCreated(result);
+        onCardCreated(response.result);
       })
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      .catch((err) => {});
+      .catch((err) => {
+        setError(err.message);
+      });
   };
 
   const titleChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(event.target.value);
+    setError('');
   };
 
   const colorChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setColor(event.target.value);
   };
 
-  const clickHandler = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    event.preventDefault();
-    deleteBoard('1731236317243');
-  };
-
   return (
-    <>
-      <form onSubmit={submitHandler}>
-        <div className="form-container">
-          <div className="form-inputs">
-            <div className="form-title">
-              <label htmlFor="board-title">Title:</label>
+    <form onSubmit={submitHandler}>
+      <div className="form-container">
+        <div className="form-inputs">
+          <div className="form-title">
+            <label htmlFor="board-title">Title:</label>
+            <div className="form-title__input">
               <input
                 id="board-title"
                 type="text"
@@ -72,26 +68,21 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
                 value={title}
                 onChange={titleChangeHandler}
               />
-            </div>
-            {error && <Error error={error} />}
-            <div className="form-custom">
-              <label htmlFor="board-color">Color:</label>
-              <input id="board-color" type="color" value={color} onChange={colorChangeHandler} />
+              <div className="form-title__input__error">{error && <Error error={error} />}</div>
             </div>
           </div>
-          <div>
-            <button className="form-button" type="submit">
-              Create
-            </button>
+          <div className="form-custom">
+            <label htmlFor="board-color">Color:</label>
+            <input id="board-color" type="color" value={color} onChange={colorChangeHandler} />
           </div>
         </div>
-      </form>
-      <div>
-        <button className="delete-button" onClick={clickHandler}>
-          Delete
-        </button>
+        <div>
+          <button className="form-button" type="submit">
+            Create
+          </button>
+        </div>
       </div>
-    </>
+    </form>
   );
 }
 

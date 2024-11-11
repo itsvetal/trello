@@ -4,6 +4,13 @@
   border-radius: $radius;
 }
 
+@mixin flex ($display, $direction, $justify, $align) {
+  display: $display;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
 @mixin configure-button ($bg-color, $color, $radius, $shadowX, $shadowY, $sh-color) {
   background-color: $bg-color;
   color: $color;
@@ -13,8 +20,8 @@
   cursor: pointer;
 }
 
-@mixin active-button($shadowX, $shadowY, $translateX, $translateY) {
-  box-shadow: $shadowX $shadowY;
+@mixin active-button($shadowX, $shadowY, $blur, $color, $translateX, $translateY) {
+  box-shadow: $shadowX $shadowY $blur $color ;
   transform: translate($translateX, $translateY);
 }
 

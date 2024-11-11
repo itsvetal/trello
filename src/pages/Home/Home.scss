@@ -11,20 +11,22 @@
   color: #fafafa;
   text-align: center;
 
-  a {
-    text-decoration: none;
+  .home-header {
+    width: 90%;
+    border-radius: 10px;
+    @extend %container-style;
+
   }
 
-  .error-text {
-    color: red;
+  a {
+    text-decoration: none;
   }
 
   .home-section {
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center;
     flex-wrap: wrap;
-    color: lightgray;
   }
 
   .home-footer{

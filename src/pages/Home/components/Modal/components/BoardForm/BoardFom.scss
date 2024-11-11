@@ -24,6 +24,21 @@
 
     }
 
+    .form-title__input {
+      position: relative;
+
+      .form-title__input__error {
+        position: absolute;
+        top: 30px;
+        text-wrap: nowrap;
+        left: 7px;
+        font-family: "Times New Roman", sans-serif;
+        font-style: normal;
+        font-weight: 400;
+      }
+
+    }
+
     .form-custom {
       @extend %input-style;
     }
@@ -34,10 +49,11 @@
             white, 5px, 0, 2px, rgba(0, 0, 0, 0.5));
     padding-top: 5px;
     padding-bottom: 5px;
+    margin-top: 10px;
   }
 
   .form-button:active {
-    @include mixin.active-button(0, 0, 0,2px);
+    @include mixin.active-button(0, 0, 0, transparent, 0, 2px);
   }
 
   .form-button:hover {

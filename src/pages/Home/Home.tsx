@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
 import './Home.scss';
@@ -12,8 +12,10 @@ import { useHome } from '../../hooks/homeHooks';
 
 export function Home(): React.ReactElement {
   const { items, loading, error, setUpdate } = useHome();
+  const [modal, setModal] = useState(false);
 
   const updateHomeBoard = (result: string): void => {
+    setModal(false);
     if (result === 'Created') {
       setUpdate((prevState) => !prevState);
       console.log('Board created');
@@ -35,12 +37,14 @@ export function Home(): React.ReactElement {
             </Link>
           );
         })}
-        <CreateBoard />
+        <CreateBoard onClickHandler={(): void => setModal(true)} />
       </section>
       <footer className="home-footer" />
-      <Modal title="Create Board">
-        <BoardForm onCardCreated={updateHomeBoard} />
-      </Modal>
+      {modal && (
+        <Modal title="Create Board" onClose={(): void => setModal(false)}>
+          <BoardForm onCardCreated={updateHomeBoard} />
+        </Modal>
+      )}
     </div>
   );
 }
