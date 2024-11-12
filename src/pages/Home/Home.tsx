@@ -6,8 +6,8 @@ import CreateBoard from './components/CreateBoard/CreateBoard';
 import { IBoard } from '../../common/interfaces/IBoards';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
-import Modal from './components/Modal/Modal';
-import BoardForm from './components/Modal/components/BoardForm/BoardForm';
+import Modal from '../../components/Modal/Modal';
+import BoardForm from './components/BoardForm/BoardForm';
 import { useHome } from '../../hooks/homeHooks';
 
 export function Home(): React.ReactElement {
@@ -18,7 +18,6 @@ export function Home(): React.ReactElement {
     setModal(false);
     if (result === 'Created') {
       setUpdate((prevState) => !prevState);
-      console.log('Board created');
     }
   };
 

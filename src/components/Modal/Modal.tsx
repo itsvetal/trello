@@ -12,7 +12,7 @@ function Modal({ children, title, onClose }: ModalProps): React.ReactElement {
     <>
       <div className="modal-backdrop" onClick={(): void => onClose()} />
       <div className="modal-window">
-        <h1>{title}</h1>
+        {title ? <h1>{title}</h1> : null}
         {children}
       </div>
     </>

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './BoardFom.scss';
-import { IBoard } from '../../../../../../common/interfaces/IBoards';
-import { postBoard } from '../../../../../../api/board/postBoard';
-import Error from '../../../../../../components/Error/Error';
+import { IBoard } from '../../../../common/interfaces/IBoards';
+import { postBoard } from '../../../../api/board/postBoard';
+import Error from '../../../../components/Error/Error';
+import { isValid } from '../../../../utils/isValid';
 
 interface BoardFormProps {
   onCardCreated: (message: string) => void;
@@ -16,19 +17,10 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    setError('');
-
-    const isValid = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9 ._-]+$/.test(title);
-
-    console.log(title.trim().length === 0);
-    console.log(isValid);
-
-    if (!isValid || title.trim().length === 0) {
+    if (isValid(title)) {
       setError('Please enter a title');
       return;
     }
-
-    setError('');
 
     const data: IBoard = {
       title,

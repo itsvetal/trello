@@ -3,6 +3,8 @@ import './Board.scss';
 import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import { IList } from '../../common/interfaces/IList';
+import Modal from '../../components/Modal/Modal';
+import TitleInput from './components/TitleInput/TitleInput';
 
 export function Board(): React.ReactElement {
   const boardTitle = 'Моя тестова дошка';
@@ -66,13 +68,24 @@ export function Board(): React.ReactElement {
   const [title, setTitle] = useState(boardTitle);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lists, setLists] = useState<IList[]>(boardLists);
+  const [modal, setModal] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { boardId } = useParams();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onChangeHandler = (event: React.ChangeEvent<HTMLButtonElement>): void => {
+    setTitle(event.target.value);
+  };
   return (
     <div className="wrapper">
       <nav className="nav-bar">
         <div className="nav-bar__title">
-          <h1>{`${title}: ${boardId}`}</h1>
+          <h1 onClick={(): void => setModal(true)}>{`${title}`}</h1>
+          {modal && (
+            <Modal title="" onClose={(): void => setModal(false)}>
+              <TitleInput />
+            </Modal>
+          )}
         </div>
         <div>
           <button className="create-list-button">

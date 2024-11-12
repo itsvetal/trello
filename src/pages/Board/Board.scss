@@ -32,6 +32,7 @@
       color: white;
       background-color: variables.$nav-bar-bg-color;
       @include mixin.container(10px, 10px, 5px);
+      @extend %container-style;
     }
   }
 

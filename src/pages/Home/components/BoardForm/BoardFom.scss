@@ -1,6 +1,6 @@
-@use "src/styles/mixin";
-@use "src/styles/variables";
-@import "src/styles/extend";
+@use "../../../../styles/mixin";
+@use "../../../../styles/variables";
+@import "../../../../styles/extend";
 
 .form-container {
   display: flex;
