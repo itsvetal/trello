@@ -20,7 +20,7 @@
     justify-content: space-between;
 
     .form-title {
-      @extend %input-style;
+      @extend %title-input-style;
 
     }
 
@@ -28,19 +28,13 @@
       position: relative;
 
       .form-title__input__error {
-        position: absolute;
-        top: 30px;
-        text-wrap: nowrap;
-        left: 7px;
-        font-family: "Times New Roman", sans-serif;
-        font-style: normal;
-        font-weight: 400;
+        @extend %title-input-error;
       }
 
     }
 
     .form-custom {
-      @extend %input-style;
+      @extend %title-input-style;
     }
   }
 

@@ -83,7 +83,7 @@ export function Board(): React.ReactElement {
           <h1 onClick={(): void => setModal(true)}>{`${title}`}</h1>
           {modal && (
             <Modal title="" onClose={(): void => setModal(false)}>
-              <TitleInput />
+              <TitleInput id={boardId} />
             </Modal>
           )}
         </div>

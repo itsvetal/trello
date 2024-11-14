@@ -1,25 +1,28 @@
 import React from 'react';
 import './Board.scss';
 import { IBoard } from '../../../../common/interfaces/IBoards';
+import { hexToRgb } from '../../../../utils/hexToRgb';
 
 export function Board({ title, custom }: IBoard): React.ReactElement {
-  const values = Object.values(custom);
-  const value = values[0];
+  function getColor(customObj: { [key: string]: string } | undefined): string | null {
+    if (customObj) {
+      const key = Object.keys(customObj).find((element: string) => element === 'color');
+      if (key) {
+        return customObj[key];
+      }
+    }
+    return null;
+  }
 
-  const hexToRgb = (hex: string): number[] => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return [r, g, b];
-  };
-  const [r, g, b] = hexToRgb(value);
+  const color = getColor(custom);
+  const [r, g, b] = color ? hexToRgb(color) : [null];
 
   return (
     <div
       className="home-board"
       style={{
-        backgroundColor: value,
-        color: r >= 200 && g >= 200 && b >= 200 ? 'black' : `white`,
+        backgroundColor: color || 'transparent',
+        color: r !== null && r >= 200 && g !== null && g >= 200 && b !== null && b >= 200 ? 'black' : `white`,
       }}
     >
       {title}
