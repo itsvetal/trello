@@ -11,13 +11,12 @@
     border-radius: 5px;
     border: 1px solid variables.$board-color-3;
     height: 25px;
-    margin-left: 10px;
   }
 
   .form-inputs {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: end;
 
     .form-title {
       @extend %title-input-style;

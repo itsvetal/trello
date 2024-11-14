@@ -11,7 +11,7 @@ interface BoardFormProps {
 
 function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
   const [title, setTitle] = useState('');
-  const [color, setColor] = useState('#000000');
+  const [info, setInfo] = useState('');
   const [error, setError] = useState('');
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -24,7 +24,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
 
     const data: IBoard = {
       title,
-      custom: { color },
+      custom: { description: info },
     };
 
     postBoard('/board', data)
@@ -43,7 +43,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
   };
 
   const colorChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setColor(event.target.value);
+    setInfo(event.target.value);
   };
 
   return (
@@ -63,9 +63,15 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
               <div className="form-title__input__error">{error && <Error error={error} />}</div>
             </div>
           </div>
-          <div className="form-custom">
-            <label htmlFor="board-color">Color:</label>
-            <input id="board-color" type="color" value={color} onChange={colorChangeHandler} />
+          <div className="form-title">
+            <label htmlFor="board-desc">Description:</label>
+            <input
+              id="board-desc"
+              type="text"
+              placeholder="Enter description"
+              value={info}
+              onChange={colorChangeHandler}
+            />
           </div>
         </div>
         <div>

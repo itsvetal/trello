@@ -1,7 +1,7 @@
 export interface IBoard {
   id?: number;
   title: string;
-  custom?: { [key: string]: string };
+  custom?: { description: string };
 }
 
 export interface IBoards {
