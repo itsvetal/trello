@@ -5,6 +5,9 @@ import { Card } from '../Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';
 
 export function List({ title, cards }: ListProps): React.ReactElement {
+  const onClickHandler = (): void => {
+    console.log('Click');
+  };
   return (
     <div className="list-container">
       <div className="list-title">
@@ -15,7 +18,7 @@ export function List({ title, cards }: ListProps): React.ReactElement {
           <Card title={card.title} key={card.id * Math.random()} />
         ))}
       </div>
-      <AddButton label="add cart" />
+      <AddButton onClick={onClickHandler} label="add cart" />
     </div>
   );
 }

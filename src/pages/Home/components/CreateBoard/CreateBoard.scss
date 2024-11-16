@@ -1,5 +1,13 @@
 @use "src/styles/mixin";
 
+.create-board-container {
+  font-size: 24px;
+  padding: 10px 5px;
+  height: 140px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255 , 0.1);
+}
+
   .create-board-container:hover {
     color: chartreuse;
     background-color: #6600ff;
@@ -8,4 +16,7 @@
       fill: chartreuse;
     }
   }
+
+
+
 

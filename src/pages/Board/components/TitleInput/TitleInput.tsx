@@ -4,32 +4,33 @@ import { IBoard } from '../../../../common/interfaces/IBoards';
 import { putBoard } from '../../../../api/board/putBoard';
 
 interface ITitleInput {
-  id: string | undefined;
+  id: number | null;
+  title: string;
 }
 
-function TitleInput(props: ITitleInput): React.ReactElement {
-  const [title, setTitle] = useState('');
+function TitleInput({ id, title }: ITitleInput): React.ReactElement {
+  const [value, setValue] = useState(title);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState('');
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitle(event.target.value);
+    setValue(event.target.value);
   };
   const eventHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
     if (event.type === 'blur') {
       console.log('Blur');
     }
 
-    if (isValid(title)) {
-      setError('Please enter a title');
+    if (isValid(value)) {
+      setError('Please enter a value');
       return;
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const data: IBoard = {
-      title,
+      title: value,
     };
 
-    putBoard(props?.id, data).then((res) => console.log('Result: ', res.result));
+    putBoard(id?.toString(), data).then((res) => console.log('Result: ', res.result));
   };
 
   const KeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -41,7 +42,7 @@ function TitleInput(props: ITitleInput): React.ReactElement {
     <div>
       <input
         placeholder="Введіть назву дошки"
-        value={title}
+        value={value}
         onChange={onChangeHandler}
         onBlur={eventHandler}
         onKeyDown={KeyDownHandler}

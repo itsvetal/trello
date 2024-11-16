@@ -26,25 +26,18 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.3);
+    @extend %container-style;
 
     .nav-bar__title {
       color: white;
-      background-color: variables.$nav-bar-bg-color;
-      @include mixin.container(10px, 10px, 5px);
-      @extend %container-style;
+      margin-left: 10px;
+
+      h1 {
+        margin: 5px 0;
+      }
     }
-  }
-
-  .create-list-button {
-    height: 40px;
-    margin-right: 10px;
-    @include mixin.configure-button(variables.$nav-bar-bg-color,
-            white, 5px, 2px, 2px, black);
-  }
-
-  .create-list-button:active {
-    @include mixin.active-button(0, 0, 0, transparent, 2px,2px);
   }
 
   .lists {

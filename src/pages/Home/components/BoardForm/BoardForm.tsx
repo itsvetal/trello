@@ -12,6 +12,7 @@ interface BoardFormProps {
 function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
   const [title, setTitle] = useState('');
   const [info, setInfo] = useState('');
+  const [color, setColor] = useState('#000000');
   const [error, setError] = useState('');
 
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -24,7 +25,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
 
     const data: IBoard = {
       title,
-      custom: { description: info },
+      custom: { description: info, color },
     };
 
     postBoard('/board', data)
@@ -42,10 +43,13 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
     setError('');
   };
 
-  const colorChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const descChangeHandler = (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setInfo(event.target.value);
   };
 
+  const colorChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    setColor(event.target.value);
+  };
   return (
     <form onSubmit={submitHandler}>
       <div className="form-container">
@@ -65,13 +69,18 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
           </div>
           <div className="form-title">
             <label htmlFor="board-desc">Description:</label>
-            <input
+            <textarea
               id="board-desc"
-              type="text"
               placeholder="Enter description"
               value={info}
-              onChange={colorChangeHandler}
+              onChange={descChangeHandler}
+              cols={30}
+              rows={5}
             />
+          </div>
+          <div className="form-title">
+            <label htmlFor="board-color">Color:</label>
+            <input id="board-color" type="color" value={color} onChange={colorChangeHandler} />
           </div>
         </div>
         <div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
 import './Home.scss';
+import './components/Board/Board.scss';
 import CreateBoard from './components/CreateBoard/CreateBoard';
 import { IBoard } from '../../common/interfaces/IBoards';
 import Loader from '../../components/Loader/Loader';
@@ -9,6 +10,7 @@ import Error from '../../components/Error/Error';
 import Modal from '../../components/Modal/Modal';
 import BoardForm from './components/BoardForm/BoardForm';
 import { useHome } from '../../hooks/homeHooks';
+import { hexToRgb } from '../../utils/colorUtils';
 
 export function Home(): React.ReactElement {
   const { items, loading, error, setUpdate } = useHome();
@@ -16,7 +18,7 @@ export function Home(): React.ReactElement {
 
   const updateHomeBoard = (result: string): void => {
     setModal(false);
-    if (result === 'Created') {
+    if (result === 'Created' || result === 'Deleted') {
       setUpdate((prevState) => !prevState);
     }
   };
@@ -29,14 +31,24 @@ export function Home(): React.ReactElement {
         {error && <Error error={error} />}
       </header>
       <section className="home-section">
+        <CreateBoard onClickHandler={(): void => setModal(true)} />
         {items?.map((board: IBoard) => {
+          const color = board.custom?.color;
+          const [r, g, b] = color ? hexToRgb(color) : [0, 0, 0];
           return (
-            <Link to={`/board/${board.id}`} key={board.id}>
-              <Board title={board.title} custom={board.custom} key={board.id} />
+            <Link
+              className="home-board"
+              to={`/board/${board.id}`}
+              key={board.id}
+              style={{
+                backgroundColor: `rgb(${r},${g}, ${b})`,
+                color: r >= 200 && g >= 200 && b >= 200 ? 'black' : `white`,
+              }}
+            >
+              <Board onClose={updateHomeBoard} title={board.title} custom={board.custom} id={board.id} />
             </Link>
           );
         })}
-        <CreateBoard onClickHandler={(): void => setModal(true)} />
       </section>
       <footer className="home-footer" />
       {modal && (

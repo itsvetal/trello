@@ -1,11 +1,23 @@
 @use "src/styles/_mixin";
 @import "src/styles/extend";
 .home-board {
-  min-height: 100px;
+  position: relative;
+  box-sizing: border-box;
   width: 250px;
+  min-height: 140px;
   cursor: pointer;
   @extend %container-style;
+  @include mixin.container(10px, 5px, 10px);
   @include mixin.flex(flex, column, center, center);
+
+  div {
+    width: 100%;
+  }
+
+  p {
+    margin-top: 0;
+    font-size: 16px;
+  }
 }
 
 .home-board:hover {

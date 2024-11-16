@@ -5,8 +5,9 @@
 .list-container {
   min-width: 250px;
   height: fit-content;
-  background-color: variables.$list-bg-color;
+  background-color: rgba(255, 255, 255, 0.3);
   @extend %container-style;
+  @include mixin.container(10px, 5px, 10px);
 
   h2 {
     margin-top: 0;

@@ -15,11 +15,6 @@ export const useHome = (): IHomeHooksProps => {
   const [error, setError] = useState('');
   const [update, setUpdate] = useState(false);
 
-  console.log('Items: ', items);
-  console.log('Loading: ', loading);
-  console.log('Error: ', error);
-  console.log('Update: ', update);
-
   useEffect(() => {
     setLoading(true);
     getBoards('/board')

@@ -1,9 +1,17 @@
 import React from 'react';
 import './Board.scss';
-import { IBoard } from '../../../../common/interfaces/IBoards';
-import { createRandomRgb } from '../../../../utils/colorUtils';
+import CloseButton from '../../../../components/CloseButton/CloseButton';
+import { deleteBoard } from '../../../../api/board/deleteBoard';
+import { IDeleteBoard } from '../../../../common/interfaces/IDeleteBoard';
 
-export function Board({ title, custom }: IBoard): React.ReactElement {
+interface IHomeBoard {
+  onClose: (message: string) => void;
+  id: number | undefined;
+  title: string;
+  custom: { description: string } | undefined;
+}
+
+export function Board({ onClose, custom, title, id }: IHomeBoard): React.ReactElement {
   function getDescription(customObj: { [key: string]: string } | undefined): string | null {
     if (customObj) {
       const key = Object.keys(customObj).find((element: string) => element === 'description');
@@ -15,18 +23,26 @@ export function Board({ title, custom }: IBoard): React.ReactElement {
   }
 
   const description = getDescription(custom);
-  const [r, g, b] = createRandomRgb();
-
+  const onCloseHandler = (): void => {
+    console.log('Close button clicked');
+    if (id) {
+      deleteBoard(id.toString()).then((data: IDeleteBoard) => {
+        if (data.result === 'Deleted') {
+          console.log('Board deleted');
+          onClose(data.result);
+        }
+      });
+    }
+  };
   return (
-    <div
-      className="home-board"
-      style={{
-        backgroundColor: `rgb(${r},${g}, ${b})`,
-        color: r >= 200 && g >= 200 && b >= 200 ? 'black' : `white`,
-      }}
-    >
-      <h2>{title}</h2>
-      <p>{description}</p>
+    <div>
+      <CloseButton onClick={onCloseHandler} />
+      <div>
+        <h2>{title}</h2>
+      </div>
+      <div>
+        <p>{description}</p>
+      </div>
     </div>
   );
 }
