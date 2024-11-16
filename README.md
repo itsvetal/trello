@@ -1,5 +1,7 @@
 # TRELLO
 
+This project is a board for planning your working time or everyday life
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
