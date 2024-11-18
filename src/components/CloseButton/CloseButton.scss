@@ -1,3 +1,8 @@
+@use "src/styles/mixin";
+
 .close-button {
   position: absolute;
+  top: 0;
+  right: 0;
+  @include mixin.configure-button(transparent, transparent, 0, 0, 0,0);
 }

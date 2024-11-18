@@ -50,12 +50,12 @@ export function Home(): React.ReactElement {
           );
         })}
       </section>
-      <footer className="home-footer" />
       {modal && (
         <Modal title="Create Board" onClose={(): void => setModal(false)}>
           <BoardForm onCardCreated={updateHomeBoard} />
         </Modal>
       )}
+      <footer className="home-footer" />
     </div>
   );
 }

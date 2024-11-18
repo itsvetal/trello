@@ -1,4 +1,14 @@
+@import "src/styles/extend";
+
 .error-text {
-  color: red;
-  margin: 0;
+  @extend %title-input-error;
+  position: absolute;
+  max-width: 155px;
+  background-color: white;
+  border-radius: 25px;
+  border: 1px dashed black;
+  padding: 10px;
+  box-sizing: border-box;
+  text-wrap: auto;
+  font-size: 14px;
 }

@@ -23,15 +23,6 @@
 
     }
 
-    .form-title__input {
-      position: relative;
-
-      .form-title__input__error {
-        @extend %title-input-error;
-      }
-
-    }
-
     .form-custom {
       @extend %title-input-style;
     }

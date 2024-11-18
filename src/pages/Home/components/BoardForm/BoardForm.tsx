@@ -4,6 +4,7 @@ import { IBoard } from '../../../../common/interfaces/IBoards';
 import { postBoard } from '../../../../api/board/postBoard';
 import Error from '../../../../components/Error/Error';
 import { isValid } from '../../../../utils/isValid';
+import { validationError } from '../../../../common/constants/errors';
 
 interface BoardFormProps {
   onCardCreated: (message: string) => void;
@@ -19,7 +20,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
     event.preventDefault();
 
     if (isValid(title)) {
-      setError('Please enter a title');
+      setError(validationError);
       return;
     }
 
@@ -64,7 +65,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
                 value={title}
                 onChange={titleChangeHandler}
               />
-              <div className="form-title__input__error">{error && <Error error={error} />}</div>
+              {error && <Error error={error} />}
             </div>
           </div>
           <div className="form-title">

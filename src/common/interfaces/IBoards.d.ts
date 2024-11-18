@@ -13,7 +13,7 @@ export interface IBoards {
 
 export interface IDetailBoard {
   title: string;
-  custom: { description: string; color: string };
+  custom?: { description: string; color: string };
   users?: [{ id: number; username: string }];
   lists?: [
     {
@@ -27,7 +27,7 @@ export interface IDetailBoard {
           description: string;
           custom: { deadline: string };
           users: number[];
-          created_at: Date;
+          created_at: number;
         },
       ];
     },
