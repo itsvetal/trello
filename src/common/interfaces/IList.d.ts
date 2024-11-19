@@ -24,4 +24,5 @@ export interface IDetailList {
       },
     ];
   };
+  textColor: string;
 }

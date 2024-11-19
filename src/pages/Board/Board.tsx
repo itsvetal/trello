@@ -3,13 +3,14 @@ import './Board.scss';
 import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import TitleInput from './components/TitleInput/TitleInput';
-import CreateList from './components/CreateList/CreateList';
 import { IDetailBoard } from '../../common/interfaces/IBoards';
 import { getBoard } from '../../api/board/getBoard';
 import Modal from '../../components/Modal/Modal';
 import ListForm from './components/ListForm/ListForm';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
+import { hexToRgb } from '../../utils/colorUtils';
+import AddCard from '../Home/components/AddCard/AddCard';
 
 export function Board(): React.ReactElement {
   const [error, setError] = useState('');
@@ -45,8 +46,11 @@ export function Board(): React.ReactElement {
     }
   };
 
+  const [r, g, b] = board?.custom?.color ? hexToRgb(board?.custom?.color) : [0, 0, 0];
+  const color = r >= 200 && g >= 200 && b >= 200 ? 'black' : `white`;
+
   return (
-    <div className="wrapper">
+    <div className="wrapper" style={{ backgroundColor: board?.custom?.color, color }}>
       <nav className="nav-bar">
         <div className="nav-bar__title">
           <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
@@ -59,13 +63,14 @@ export function Board(): React.ReactElement {
       </div>
 
       <section className="lists">
-        <CreateList onCreateList={(): void => setListModal(true)} />
+        {/* <CreateList onCreateList={(): void => setListModal(true)} textColor={color} /> */}
+        <AddCard onClickHandler={(): void => setListModal(true)} title="Add another list" color={color} height="81px" />
         {listModal && (
           <Modal title="Create list" onClose={(): void => setListModal(false)}>
             <ListForm id={boardId || ''} />
           </Modal>
         )}
-        {board?.lists?.map((list) => <List key={list.id * Math.random()} list={list} />)}
+        {board?.lists?.map((list) => <List key={list.id * Math.random()} list={list} textColor={color} />)}
       </section>
       <footer className="footer" />
     </div>

@@ -4,7 +4,7 @@ import { Card } from './components/Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';
 import { IDetailList } from '../../../../common/interfaces/IList';
 
-export function List({ list }: IDetailList): React.ReactElement {
+export function List({ list, textColor }: IDetailList): React.ReactElement {
   const onClickHandler = (): void => {
     console.log('Click');
   };
@@ -18,7 +18,7 @@ export function List({ list }: IDetailList): React.ReactElement {
           <Card title={card.title} key={card.id * Math.random()} />
         ))}
       </div>
-      <AddButton onButtonClick={onClickHandler} label="add card" />
+      <AddButton onButtonClick={onClickHandler} label="add card" color={textColor} />
     </div>
   );
 }

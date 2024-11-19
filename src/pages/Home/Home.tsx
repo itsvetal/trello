@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
 import './Home.scss';
 import './components/Board/Board.scss';
-import CreateBoard from './components/CreateBoard/CreateBoard';
+import AddCard from './components/AddCard/AddCard';
 import { IBoard } from '../../common/interfaces/IBoards';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
@@ -31,7 +31,7 @@ export function Home(): React.ReactElement {
         {error && <Error error={error} />}
       </header>
       <section className="home-section">
-        <CreateBoard onClickHandler={(): void => setModal(true)} />
+        <AddCard onClickHandler={(): void => setModal(true)} title="Додати дошку" color="white" height="140px" />
         {items?.map((board: IBoard) => {
           const color = board.custom?.color;
           const [r, g, b] = color ? hexToRgb(color) : [0, 0, 0];

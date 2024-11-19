@@ -4,16 +4,17 @@ import { AddButton } from '../../../../components/AddButton/AddButton';
 
 interface ICreateList {
   onCreateList: () => void;
+  textColor: string;
 }
 
-function CreateList({ onCreateList }: ICreateList): React.ReactElement {
+function CreateList({ onCreateList, textColor }: ICreateList): React.ReactElement {
   const onClickHandler = (): void => {
     console.log('Click');
     onCreateList();
   };
   return (
     <div className="create-list-container">
-      <AddButton label="Add another list" onButtonClick={onClickHandler} />
+      <AddButton label="Add another list" onButtonClick={onClickHandler} color={textColor} />
     </div>
   );
 }

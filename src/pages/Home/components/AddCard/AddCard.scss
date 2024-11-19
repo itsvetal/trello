@@ -1,26 +1,20 @@
-@use "src/styles/_mixin";
+@use "src/styles/mixin";
 @import "src/styles/extend";
-.home-board {
+
+.add-card-container {
   position: relative;
   box-sizing: border-box;
   width: 250px;
-  min-height: 140px;
   cursor: pointer;
+  font-size: 24px;
   @extend %container-style;
   @include mixin.container(10px, 5px, 10px);
   @include mixin.flex(flex, column, center, center);
-
-  div {
-    width: 100%;
-  }
-
-  p {
-    margin-top: 0;
-    font-size: 16px;
-  }
 }
 
-.home-board:hover {
+.add-card-container:hover {
+  color: chartreuse;
+  background-color: #6600ff;
   box-shadow: 5px 7px 8px black, 7px 9px 50px white;
 
   svg {
@@ -28,7 +22,10 @@
   }
 }
 
-.home-board:active {
+.add-card-container:active {
   @include mixin.active-button(0, 0, 50px, white, 0, 2px);
 }
 
+.add-card-content {
+  @include mixin.flex(flex, row, center,center);
+}
