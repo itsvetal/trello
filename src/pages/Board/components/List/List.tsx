@@ -1,24 +1,24 @@
 import React from 'react';
 import './List.scss';
-import { ListProps } from '../../../../common/interfaces/ListProps';
-import { Card } from '../Card/Card';
+import { Card } from './components/Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';
+import { IDetailList } from '../../../../common/interfaces/IList';
 
-export function List({ title, cards }: ListProps): React.ReactElement {
+export function List({ list }: IDetailList): React.ReactElement {
   const onClickHandler = (): void => {
     console.log('Click');
   };
   return (
     <div className="list-container">
       <div className="list-title">
-        <h2>{title}</h2>
+        <h2>{list.title}</h2>
       </div>
       <div>
-        {cards.map((card) => (
+        {list.cards.map((card) => (
           <Card title={card.title} key={card.id * Math.random()} />
         ))}
       </div>
-      <AddButton onClick={onClickHandler} label="add cart" />
+      <AddButton onButtonClick={onClickHandler} label="add card" />
     </div>
   );
 }

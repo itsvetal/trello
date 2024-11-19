@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import './BoardFom.scss';
+import '../../../../styles/form.scss';
 import { IBoard } from '../../../../common/interfaces/IBoards';
 import { postBoard } from '../../../../api/board/postBoard';
 import Error from '../../../../components/Error/Error';
-import { isValid } from '../../../../utils/isValid';
+import { isValidLetter } from '../../../../utils/isValidLetter';
 import { validationError } from '../../../../common/constants/errors';
 
 interface BoardFormProps {
@@ -19,7 +19,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (isValid(title)) {
+    if (!isValidLetter(title)) {
       setError(validationError);
       return;
     }
@@ -52,12 +52,12 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
     setColor(event.target.value);
   };
   return (
-    <form onSubmit={submitHandler}>
-      <div className="form-container">
+    <div className="form-container">
+      <form onSubmit={submitHandler}>
         <div className="form-inputs">
-          <div className="form-title">
+          <div className="form-input">
             <label htmlFor="board-title">Title:</label>
-            <div className="form-title__input">
+            <div>
               <input
                 id="board-title"
                 type="text"
@@ -68,7 +68,7 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
               {error && <Error error={error} />}
             </div>
           </div>
-          <div className="form-title">
+          <div className="form-input">
             <label htmlFor="board-desc">Description:</label>
             <textarea
               id="board-desc"
@@ -79,18 +79,18 @@ function BoardForm({ onCardCreated }: BoardFormProps): React.ReactElement {
               rows={5}
             />
           </div>
-          <div className="form-title">
+          <div className="form-input">
             <label htmlFor="board-color">Color:</label>
             <input id="board-color" type="color" value={color} onChange={colorChangeHandler} />
           </div>
         </div>
         <div>
           <button className="form-button" type="submit">
-            Create
+            Submit
           </button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

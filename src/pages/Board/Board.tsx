@@ -2,63 +2,37 @@ import React, { useEffect, useState } from 'react';
 import './Board.scss';
 import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
-import { IList } from '../../common/interfaces/IList';
 import TitleInput from './components/TitleInput/TitleInput';
 import CreateList from './components/CreateList/CreateList';
 import { IDetailBoard } from '../../common/interfaces/IBoards';
 import { getBoard } from '../../api/board/getBoard';
-import { detailBoardPlug } from '../../common/constants/plugs';
+import Modal from '../../components/Modal/Modal';
+import ListForm from './components/ListForm/ListForm';
+import Loader from '../../components/Loader/Loader';
+import Error from '../../components/Error/Error';
 
 export function Board(): React.ReactElement {
-  console.log('Board is rendered');
-  const boardLists = [
-    {
-      id: 1,
-      title: 'Плани',
-      cards: [
-        { id: 1, title: 'помити кота' },
-        { id: 2, title: 'приготувати суп' },
-        { id: 3, title: 'сходити в магазин' },
-      ],
-    },
-    {
-      id: 2,
-      title: 'В процесі',
-      cards: [{ id: 4, title: 'подивитися серіал' }],
-    },
-    {
-      id: 3,
-      title: 'Зроблено',
-      cards: [
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-      ],
-    },
-  ];
+  const [error, setError] = useState('');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [lists, setLists] = useState<IList[]>(boardLists);
+  const [loading, setLoading] = useState(false);
   const [input, setInput] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [board, setBoard] = useState<IDetailBoard>(detailBoardPlug);
+  const [listModal, setListModal] = useState(false);
+  const [board, setBoard] = useState<IDetailBoard | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [update, setUpdate] = useState(false);
   const { boardId } = useParams();
 
   useEffect(() => {
+    setLoading(true);
     getBoard(boardId)
       .then((data) => {
         setBoard(data);
+        setLoading(false);
         console.log(data);
       })
       .catch((err) => {
+        setLoading(false);
+        setError(err.message);
         console.log(err.message);
       });
   }, [update]);
@@ -75,15 +49,23 @@ export function Board(): React.ReactElement {
     <div className="wrapper">
       <nav className="nav-bar">
         <div className="nav-bar__title">
-          <h1 onClick={(): void => setInput(true)}>{board?.title ? board.title : ''}</h1>
-          {input && <TitleInput id={boardId ? +boardId : null} title={board.title} onTitleChanged={updateBoard} />}
+          <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
+          {input && <TitleInput id={boardId ? +boardId : null} title={board?.title} onTitleChanged={updateBoard} />}
         </div>
       </nav>
+      <div className="board-loading">
+        {loading && <Loader />}
+        {error && <Error error={error} />}
+      </div>
+
       <section className="lists">
-        {lists.map((list) => (
-          <List key={list.id * Math.random()} title={list.title} cards={list.cards} />
-        ))}
-        <CreateList />
+        <CreateList onCreateList={(): void => setListModal(true)} />
+        {listModal && (
+          <Modal title="Create list" onClose={(): void => setListModal(false)}>
+            <ListForm id={boardId || ''} />
+          </Modal>
+        )}
+        {board?.lists?.map((list) => <List key={list.id * Math.random()} list={list} />)}
       </section>
       <footer className="footer" />
     </div>

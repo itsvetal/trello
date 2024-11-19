@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { isValid } from '../../../../utils/isValid';
+import { isValidLetter } from '../../../../utils/isValidLetter';
 import { IDetailBoard } from '../../../../common/interfaces/IBoards';
 import { putBoard } from '../../../../api/board/putBoard';
 import './TitleInput.scss';
@@ -8,13 +8,12 @@ import Error from '../../../../components/Error/Error';
 
 interface ITitleInput {
   id: number | null;
-  title: string;
+  title: string | undefined;
   onTitleChanged: (data: string) => void;
 }
 
 function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElement {
   const [value, setValue] = useState(title);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState('');
   const focusInputRef = useRef<HTMLInputElement>(null);
 
@@ -31,7 +30,7 @@ function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElem
     event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>
   ): void => {
     if (event.type === 'blur' || (event.type === 'keydown' && 'key' in event && event.key === 'Enter')) {
-      if (isValid(value)) {
+      if (!isValidLetter(value)) {
         setError(validationError);
         return;
       }

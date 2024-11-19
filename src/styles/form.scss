@@ -1,6 +1,6 @@
-@use "../../../../styles/mixin";
-@use "../../../../styles/variables";
-@import "../../../../styles/extend";
+@use "mixin";
+@use "variables";
+@import "extend";
 
 .form-container {
   display: flex;
@@ -13,14 +13,18 @@
     height: 25px;
   }
 
+  label {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
   .form-inputs {
     display: flex;
     flex-direction: column;
     justify-content: end;
 
-    .form-title {
+    .form-input {
       @extend %title-input-style;
-
     }
 
     .form-custom {
@@ -44,9 +48,4 @@
     background-color: variables.$board-color-1;
   }
 
-}
-
-.delete-button {
-  @include mixin.configure-button(red,
-          white, 5px, 0, 2px, rgba(0, 0, 0, 0.5));
 }

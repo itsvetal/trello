@@ -12,7 +12,7 @@ export interface IBoards {
 }
 
 export interface IDetailBoard {
-  title: string;
+  title?: string;
   custom?: { description: string; color: string };
   users?: [{ id: number; username: string }];
   lists?: [

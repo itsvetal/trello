@@ -11,18 +11,19 @@
 
 .modal-window {
   position: absolute;
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: start;
   top: 20px;
   left: 50%;
   transform: translate(-50%);
   background-color: #fafafa;
   color: black;
-  border-radius: 5px;
-  padding: 10px 20px;
-  margin: 10px;
-
+  @include mixin.container(10px, 10px, 5px);
 }
 
-h1 {
+p {
+  margin-top: 0;
   font-size: 20px;
   font-weight: 600;
   text-wrap: nowrap;
