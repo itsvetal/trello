@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Board } from './components/Board/Board';
 import './Home.scss';
 import './components/Board/Board.scss';
-import AddCard from './components/AddCard/AddCard';
+import AddCard from '../../components/AddCard/AddCard';
 import { IBoard } from '../../common/interfaces/IBoards';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';

@@ -10,7 +10,7 @@ import ListForm from './components/ListForm/ListForm';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
 import { hexToRgb } from '../../utils/colorUtils';
-import AddCard from '../Home/components/AddCard/AddCard';
+import AddCard from '../../components/AddCard/AddCard';
 
 export function Board(): React.ReactElement {
   const [error, setError] = useState('');
