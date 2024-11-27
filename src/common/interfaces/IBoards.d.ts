@@ -7,8 +7,14 @@ export interface IBoard {
   };
 }
 
-export interface IBoards {
+export interface IBoardsResponse {
   boards: IBoard[];
+}
+
+export interface IHomeBoardsState {
+  list: IBoard[];
+  status: string;
+  error: string;
 }
 
 export interface IDetailBoard {

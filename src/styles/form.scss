@@ -2,50 +2,77 @@
 @use "variables";
 @import "extend";
 
-.form-container {
+input {
+  height: 25px;
+}
+
+.color-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.form-items {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  justify-content: end;
+  width: 100%;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+  font-style: normal;
 
-  input {
+  .form-item {
+    @extend %title-input-style;
     border-radius: 5px;
-    border: 1px solid variables.$board-color-3;
-    height: 25px;
+    border: 1px solid variables.$board-color-1;
   }
 
-  label {
-    font-size: 16px;
-    font-weight: 600;
+  .form-item input {
+    position: relative;
   }
+}
 
-  .form-inputs {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
+.form-button {
+  @include mixin.configure-button(variables.$board-color-1,
+          white, 5px, 0, 2px, rgba(0, 0, 0, 0.7));
+  @include mixin.container(5px, 5px, 5px);
+  font-size: 14px;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+  font-weight: 600;
+}
 
-    .form-input {
-      @extend %title-input-style;
-    }
+.form-button:active {
+  @include mixin.active-button(0, 0, 0, transparent, 0, 2px);
+}
 
-    .form-custom {
-      @extend %title-input-style;
-    }
-  }
+.form-button:hover {
+  background-color: #005e99;
+}
 
-  .form-button {
-    @include mixin.configure-button(variables.$nav-bar-bg-color,
-            white, 5px, 0, 2px, rgba(0, 0, 0, 0.5));
-    padding-top: 5px;
-    padding-bottom: 5px;
-    margin-top: 10px;
-  }
+::-webkit-input-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+}
 
-  .form-button:active {
-    @include mixin.active-button(0, 0, 0, transparent, 0, 2px);
-  }
+:-moz-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
 
-  .form-button:hover {
-    background-color: variables.$board-color-1;
-  }
+}
 
+::-moz-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+
+}
+
+:-ms-input-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
 }

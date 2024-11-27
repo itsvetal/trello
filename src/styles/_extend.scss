@@ -29,6 +29,7 @@
 
 %background {
   background-image: linear-gradient(to bottom right, variables.$board-color-1, variables.$board-color-2, variables.$board-color-3, variables.$board-color-4);
+  //background-color: #FBCBBF;
   background-size: cover;
   background-position: center;
 }
@@ -41,7 +42,7 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin:0 5px 10px 0;
+  margin:5px 0;
 
 }
 

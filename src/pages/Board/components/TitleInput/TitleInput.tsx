@@ -51,7 +51,11 @@ function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElem
 
   return (
     <>
-      {error && <Error error={error} />}
+      {error && (
+        <div className="title-error-container">
+          <Error error={error} />
+        </div>
+      )}
       <input
         className="title-input"
         placeholder="Введіть назву дошки"

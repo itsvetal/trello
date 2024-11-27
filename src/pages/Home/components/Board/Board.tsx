@@ -5,13 +5,13 @@ import { deleteBoard } from '../../../../api/board/deleteBoard';
 import { IDeleteBoard } from '../../../../common/interfaces/IDeleteBoard';
 
 interface IHomeBoard {
-  onClose: (message: string) => void;
+  onRemoveItem: (message: string) => void;
   id: number | undefined;
   title: string;
   custom: { description: string } | undefined;
 }
 
-export function Board({ onClose, custom, title, id }: IHomeBoard): React.ReactElement {
+export function Board({ onRemoveItem, custom, title, id }: IHomeBoard): React.ReactElement {
   function getDescription(customObj: { [key: string]: string } | undefined): string | null {
     if (customObj) {
       const key = Object.keys(customObj).find((element: string) => element === 'description');
@@ -23,20 +23,20 @@ export function Board({ onClose, custom, title, id }: IHomeBoard): React.ReactEl
   }
 
   const description = getDescription(custom);
-  const onCloseHandler = (): void => {
+  const onClickHandler = (): void => {
     console.log('Close button clicked');
     if (id) {
       deleteBoard(id.toString()).then((data: IDeleteBoard) => {
         if (data.result === 'Deleted') {
           console.log('Board deleted');
-          onClose(data.result);
+          onRemoveItem(data.result);
         }
       });
     }
   };
   return (
     <div>
-      <CloseButton onClick={onCloseHandler} />
+      <CloseButton onClick={onClickHandler} />
       <div>
         <h2>{title}</h2>
       </div>

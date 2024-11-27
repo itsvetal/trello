@@ -39,30 +39,31 @@ function ListForm({ id }: IListForm): React.ReactElement {
   };
 
   return (
-    <div className="form-container">
-      <form action="" onSubmit={submitHandler}>
-        <div className="form-inputs">
-          <div className="form-input">
-            <label htmlFor="input-title">Title:</label>
-            <div>
-              <input id="input-title" type="text" value={title} onChange={titleHandler} />
-              {error && <Error error={error} />}
-            </div>
-          </div>
-          <div className="form-input">
-            <label htmlFor="input-position">Position:</label>
-            <div>
-              <input id="input-position" type="number" value={position} onChange={positionHandler} />
-            </div>
-          </div>
+    <form className="form-items" onSubmit={submitHandler}>
+      <input
+        className="form-item"
+        placeholder="Enter the list name..."
+        type="text"
+        value={title}
+        onChange={titleHandler}
+      />
+      {error && (
+        <div className="error-container">
+          <Error error={error} />
         </div>
-        <div>
-          <button className="form-button" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+      )}
+      <input
+        className="form-item"
+        placeholder="Enter the list position..."
+        type="number"
+        value={position}
+        onChange={positionHandler}
+      />
+
+      <button className="form-button" type="submit">
+        <span>Submit</span>
+      </button>
+    </form>
   );
 }
 

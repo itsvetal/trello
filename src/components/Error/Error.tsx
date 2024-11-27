@@ -6,7 +6,7 @@ interface ErrorProps {
 }
 
 function Error({ error }: ErrorProps): React.ReactElement {
-  return <div className="error-text">Error: {error}</div>;
+  return <p className="error-text">Error: {error}</p>;
 }
 
 export default Error;

@@ -25,4 +25,12 @@
   transform: translate($translateX, $translateY);
 }
 
+@mixin item-position($position, $top, $bottom, $left, $right) {
+  position: $position;
+  top: $top;
+  bottom: $bottom;
+  left: $left;
+  right: $right;
+}
+
 
