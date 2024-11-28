@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isValidLetter } from '../../../../utils/isValidLetter';
-import { IDetailBoard } from '../../../../common/interfaces/IBoards';
+import { IDetailBoard } from '../../../../common/interfaces/boards';
 import { putBoard } from '../../../../api/board/putBoard';
 import './TitleInput.scss';
 import { validationError } from '../../../../common/constants/errors';
@@ -30,7 +30,7 @@ function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElem
     event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>
   ): void => {
     if (event.type === 'blur' || (event.type === 'keydown' && 'key' in event && event.key === 'Enter')) {
-      if (!isValidLetter(value)) {
+      if (!value || !isValidLetter(value)) {
         setError(validationError);
         return;
       }

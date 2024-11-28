@@ -1,4 +1,4 @@
-import { IDetailBoard } from '../interfaces/IBoards';
+import { IDetailBoard } from '../interfaces/boards';
 
 export const detailBoardPlug: IDetailBoard = {
   title: '',

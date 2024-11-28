@@ -1,8 +1,4 @@
-export const isValidLetter = (value: string | undefined): boolean => {
-  console.log('Value:', value);
-  if (!value) {
-    return false;
-  }
+export const isValidLetter = (value: string): boolean => {
   const checkValue = /^[a-zA-Zа-яА-ЯёЁіІїЇєЄґҐ0-9 ._-]+$/.test(value);
-  return checkValue || value.trim().length > 0;
+  return checkValue || value.trim().length === 0;
 };

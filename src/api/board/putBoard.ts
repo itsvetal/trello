@@ -1,5 +1,5 @@
 import instance from '../request';
-import { IDetailBoard } from '../../common/interfaces/IBoards';
+import { IDetailBoard } from '../../common/interfaces/boards';
 
 export interface IPutBoard {
   result: string;

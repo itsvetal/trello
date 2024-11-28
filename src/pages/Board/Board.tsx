@@ -3,7 +3,7 @@ import './Board.scss';
 import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import TitleInput from './components/TitleInput/TitleInput';
-import { IDetailBoard } from '../../common/interfaces/IBoards';
+import { IDetailBoard } from '../../common/interfaces/boards';
 import { getBoard } from '../../api/board/getBoard';
 import Modal from '../../components/Modal/Modal';
 import ListForm from './components/ListForm/ListForm';

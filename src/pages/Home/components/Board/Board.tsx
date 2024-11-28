@@ -1,17 +1,17 @@
 import React from 'react';
 import './Board.scss';
 import CloseButton from '../../../../components/CloseButton/CloseButton';
-import { deleteBoard } from '../../../../api/board/deleteBoard';
-import { IDeleteBoard } from '../../../../common/interfaces/IDeleteBoard';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { removeBoard } from '../../../../store/thunks/boardThunks';
 
 interface IHomeBoard {
-  onRemoveItem: (message: string) => void;
   id: number | undefined;
   title: string;
   custom: { description: string } | undefined;
 }
 
-export function Board({ onRemoveItem, custom, title, id }: IHomeBoard): React.ReactElement {
+export function Board({ custom, title, id }: IHomeBoard): React.ReactElement {
+  const dispatch = useAppDispatch();
   function getDescription(customObj: { [key: string]: string } | undefined): string | null {
     if (customObj) {
       const key = Object.keys(customObj).find((element: string) => element === 'description');
@@ -24,16 +24,11 @@ export function Board({ onRemoveItem, custom, title, id }: IHomeBoard): React.Re
 
   const description = getDescription(custom);
   const onClickHandler = (): void => {
-    console.log('Close button clicked');
     if (id) {
-      deleteBoard(id.toString()).then((data: IDeleteBoard) => {
-        if (data.result === 'Deleted') {
-          console.log('Board deleted');
-          onRemoveItem(data.result);
-        }
-      });
+      dispatch(removeBoard(id));
     }
   };
+
   return (
     <div>
       <CloseButton onClick={onClickHandler} />

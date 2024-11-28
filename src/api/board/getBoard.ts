@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import instance from '../request';
-import { IDetailBoard } from '../../common/interfaces/IBoards';
+import { IDetailBoard } from '../../common/interfaces/boards';
 
 export const getBoard = async (data: string | undefined): Promise<IDetailBoard> => {
   try {

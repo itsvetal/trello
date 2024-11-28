@@ -8,7 +8,6 @@ interface ICloseButton {
 function CloseButton({ onClick }: ICloseButton): React.ReactElement {
   const onClickHandler = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    console.log('хер тебе');
     onClick();
   };
   return (

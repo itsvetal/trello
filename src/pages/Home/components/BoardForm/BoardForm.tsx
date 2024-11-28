@@ -5,9 +5,10 @@ import Error from '../../../../components/Error/Error';
 import { isValidLetter } from '../../../../utils/isValidLetter';
 import { validationError } from '../../../../common/constants/errors';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
-import { IPostBoardData, postBoard } from '../../../../store/homeBoardsSlice';
+import { IBoardForm, IPostBoardArgs } from '../../../../common/interfaces/boards';
+import { postBoard } from '../../../../store/thunks/boardThunks';
 
-function BoardForm(): React.ReactElement {
+function BoardForm({ onCardCreated }: IBoardForm): React.ReactElement {
   const [title, setTitle] = useState('');
   const [info, setInfo] = useState('');
   const [color, setColor] = useState('#000000');
@@ -17,16 +18,17 @@ function BoardForm(): React.ReactElement {
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidLetter(title)) {
+    if (!title || !isValidLetter(title)) {
       setError(validationError);
       return;
     }
 
-    const data: IPostBoardData = {
+    const data: IPostBoardArgs = {
       path: '/board',
       item: { title, custom: { description: info, color } },
     };
     dispatch(postBoard(data));
+    onCardCreated();
   };
 
   const titleChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -56,15 +58,15 @@ function BoardForm(): React.ReactElement {
         value={info}
         onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => setInfo(event.target.value)}
       />
-      <label className="color-container">
-        <span>Select color:</span>
+      <div className="color-container">
+        <label>Select color:</label>
         <input
           className="form-item"
           type="color"
           value={color}
           onChange={(event: React.ChangeEvent<HTMLInputElement>): void => setColor(event.target.value)}
         />
-      </label>
+      </div>
       <button className="form-button" type="submit">
         <span>Submit</span>
       </button>

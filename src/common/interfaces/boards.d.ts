@@ -7,11 +7,29 @@ export interface IBoard {
   };
 }
 
-export interface IBoardsResponse {
+export interface IBoardForm {
+  onCardCreated: () => void;
+}
+
+export interface IPostBoardArgs {
+  item: IBoard;
+  path: string;
+}
+
+export interface IPostBoard {
+  result: string;
+  id: number;
+}
+
+export interface IDeleteBoard {
+  result: string;
+}
+
+export interface IFetchBoardsResponse {
   boards: IBoard[];
 }
 
-export interface IHomeBoardsState {
+export interface IHomeBoardsSlice {
   list: IBoard[];
   status: string;
   error: string;
