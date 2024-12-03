@@ -2,7 +2,7 @@ import React from 'react';
 import './List.scss';
 import { Card } from './components/Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';
-import { IDetailList } from '../../../../common/interfaces/IList';
+import { IDetailList } from '../../../../common/interfaces/lists';
 
 export function List({ list, textColor }: IDetailList): React.ReactElement {
   const onClickHandler = (): void => {

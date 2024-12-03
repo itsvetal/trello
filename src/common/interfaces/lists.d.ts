@@ -4,8 +4,18 @@ export interface IList {
   position: number;
 }
 
+export interface IListForm {
+  id: string;
+  onCreateList: () => void;
+}
+
 export interface IPostList {
   result: string;
+}
+
+export interface IPostListArgs {
+  item: IList;
+  id: string;
 }
 
 export interface IDetailList {

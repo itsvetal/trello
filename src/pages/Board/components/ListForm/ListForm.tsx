@@ -3,17 +3,15 @@ import '../../../../styles/form.scss';
 import { isValidLetter } from '../../../../utils/isValidLetter';
 import Error from '../../../../components/Error/Error';
 import { validationError } from '../../../../common/constants/errors';
-import { IList } from '../../../../common/interfaces/IList';
-import { postList } from '../../../../api/list/postList';
+import { IListForm, IPostListArgs } from '../../../../common/interfaces/lists';
+import { postList } from '../../../../store/thunks/listThunks';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
 
-export interface IListForm {
-  id: string;
-}
-
-function ListForm({ id }: IListForm): React.ReactElement {
+function ListForm({ id, onCreateList }: IListForm): React.ReactElement {
   const [title, setTitle] = useState('');
   const [position, setPosition] = useState(0);
   const [error, setError] = useState('');
+  const dispatch = useAppDispatch();
 
   const titleHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(event.target.value);
@@ -30,12 +28,15 @@ function ListForm({ id }: IListForm): React.ReactElement {
       return;
     }
 
-    const data: IList = {
-      title,
-      position,
+    const data: IPostListArgs = {
+      item: {
+        title,
+        position,
+      },
+      id,
     };
-
-    postList(id, data).then((res) => console.log(res.result));
+    dispatch(postList(data));
+    onCreateList();
   };
 
   return (

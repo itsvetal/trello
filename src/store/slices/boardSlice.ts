@@ -1,59 +1,46 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
-import { IDetailBoard } from '../../common/interfaces/boards';
-import instance from '../../api/request';
-import { api } from '../../common/constants';
-
-export interface IBoardSlice {
-  board: IDetailBoard | null;
-  status: string;
-  error: string;
-}
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { IBoardSlice } from '../../common/interfaces/boards';
+import { fetchBoard } from '../thunks/boardThunks';
 
 const initialState: IBoardSlice = {
   board: null,
+  boardId: '',
   status: '',
   error: '',
 };
 
-export const fetchBoard = createAsyncThunk(
-  'board/fetchBoard',
-  async (id: string | undefined): Promise<IDetailBoard> => {
-    try {
-      return await instance.get(`board/${id}`);
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        if (err.response) {
-          throw new Error(`Wrong board ID: ${id}`);
-        } else if (err.request) {
-          throw new Error(`Request by URL: ${api.baseURL} is failed`);
-        }
-      }
-      throw new Error();
-    }
-  }
-);
-
 const boardSlice = createSlice({
   name: 'board',
   initialState,
-  reducers: {},
+  reducers: {
+    getBoardId(state, action: PayloadAction<string>) {
+      return {
+        ...state,
+        boardId: action.payload,
+      };
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.pending, (state) => {
-      return {
-        ...state,
-        status: 'loading',
-        error: '',
-      };
+      // eslint-disable-next-line no-param-reassign
+      state.status = 'loading';
+      // eslint-disable-next-line no-param-reassign
+      state.error = '';
     });
     builder.addCase(fetchBoard.fulfilled, (state, action) => {
-      return {
-        ...state,
-        status: 'resolved',
-        board: action.payload,
-      };
+      // eslint-disable-next-line no-param-reassign
+      state.status = 'resolved';
+      // eslint-disable-next-line no-param-reassign
+      state.board = action.payload;
+    });
+    builder.addCase(fetchBoard.rejected, (state, action) => {
+      // eslint-disable-next-line no-param-reassign
+      state.status = 'failed';
+      // eslint-disable-next-line no-param-reassign
+      state.error = action.error.message || 'Something went wrong';
     });
   },
 });
 
 export default boardSlice.reducer;
+export const { getBoardId } = boardSlice.actions;

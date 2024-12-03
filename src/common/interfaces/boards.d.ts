@@ -11,14 +11,23 @@ export interface IBoardForm {
   onCardCreated: () => void;
 }
 
+export interface IPostBoard {
+  result: string;
+  id: number;
+}
+
 export interface IPostBoardArgs {
   item: IBoard;
   path: string;
 }
 
-export interface IPostBoard {
+export interface IPutBoard {
   result: string;
-  id: number;
+}
+
+export interface IPutBoardArgs {
+  id: string;
+  item: IDetailBoard;
 }
 
 export interface IDeleteBoard {
@@ -31,6 +40,13 @@ export interface IFetchBoardsResponse {
 
 export interface IHomeBoardsSlice {
   list: IBoard[];
+  status: string;
+  error: string;
+}
+
+export interface IBoardSlice {
+  board: IDetailBoard | null;
+  boardId: string;
   status: string;
   error: string;
 }

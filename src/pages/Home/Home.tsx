@@ -11,6 +11,7 @@ import { hexToRgb } from '../../utils/colorUtils';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import Error from '../../components/Error/Error';
 import { fetchBoards } from '../../store/thunks/boardThunks';
+import Loader from '../../components/Loader/Loader';
 
 export function Home(): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -25,9 +26,9 @@ export function Home(): React.ReactElement {
     <div className="home-container">
       <header className="home-header">
         <h1>Мої дошки</h1>
-        {status === 'loading' && <p>Loading</p>}
+        {status === 'loading' && <Loader />}
         {status === 'failed' && <Error error={error} />}
-        {status === 'resolved' && list.length === 0 && <p>No lists available</p>}
+        {status === 'resolved' && list.length === 0 && <p>No boards available</p>}
       </header>
       <section className="home-section">
         <AddCard onClickHandler={(): void => setModal(true)} title="Додати дошку" color="white" height="140px" />

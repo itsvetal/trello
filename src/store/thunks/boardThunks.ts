@@ -1,6 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { IBoard, IDeleteBoard, IFetchBoardsResponse, IPostBoard, IPostBoardArgs } from '../../common/interfaces/boards';
+import {
+  IBoard,
+  IDeleteBoard,
+  IDetailBoard,
+  IFetchBoardsResponse,
+  IPostBoard,
+  IPostBoardArgs,
+  IPutBoard,
+  IPutBoardArgs,
+} from '../../common/interfaces/boards';
 import instance from '../../api/request';
 import { api } from '../../common/constants';
 
@@ -49,6 +58,46 @@ export const removeBoard = createAsyncThunk(
       const response: IDeleteBoard = await instance.delete(`/board/${id}`);
       if (response.result === 'Deleted') {
         dispatch(fetchBoards('/board'));
+      }
+      return response;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response) {
+          throw new Error('Response error');
+        } else if (err.request) {
+          throw new Error('Request error');
+        }
+      }
+      throw new Error();
+    }
+  }
+);
+
+export const fetchBoard = createAsyncThunk(
+  'board/fetchBoard',
+  async (id: string | undefined): Promise<IDetailBoard> => {
+    try {
+      return await instance.get(`board/${id}`);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response) {
+          throw new Error(`Wrong board ID: ${id}`);
+        } else if (err.request) {
+          throw new Error(`Request by URL: ${api.baseURL} is failed`);
+        }
+      }
+      throw new Error();
+    }
+  }
+);
+
+export const putBoard = createAsyncThunk(
+  'board/putBoard',
+  async (data: IPutBoardArgs, { dispatch }): Promise<IPutBoard> => {
+    try {
+      const response: IPutBoard = await instance.put(`/board/${data.id}`, data.item);
+      if (response.result === 'Updated') {
+        dispatch(fetchBoard(data.id));
       }
       return response;
     } catch (err) {

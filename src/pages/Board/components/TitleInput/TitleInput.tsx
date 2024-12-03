@@ -1,21 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isValidLetter } from '../../../../utils/isValidLetter';
-import { IDetailBoard } from '../../../../common/interfaces/boards';
-import { putBoard } from '../../../../api/board/putBoard';
+import { IPutBoardArgs } from '../../../../common/interfaces/boards';
 import './TitleInput.scss';
 import { validationError } from '../../../../common/constants/errors';
 import Error from '../../../../components/Error/Error';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { putBoard } from '../../../../store/thunks/boardThunks';
 
 interface ITitleInput {
-  id: number | null;
-  title: string | undefined;
-  onTitleChanged: (data: string) => void;
+  id: string | null;
+  title: string | null;
+  onTitleChanged: () => void;
 }
 
 function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElement {
-  const [value, setValue] = useState(title);
+  const [value, setValue] = useState<string>(title || '');
   const [error, setError] = useState('');
   const focusInputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     focusInputRef.current?.focus();
@@ -34,18 +36,14 @@ function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElem
         setError(validationError);
         return;
       }
-
-      const data: IDetailBoard = {
-        title: value,
+      const data: IPutBoardArgs = {
+        id: id || '',
+        item: {
+          title: value,
+        },
       };
-
-      putBoard(id?.toString(), data)
-        .then((res) => {
-          onTitleChanged(res.result);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
+      dispatch(putBoard(data));
+      onTitleChanged();
     }
   };
 
