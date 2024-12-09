@@ -25,3 +25,34 @@ export const postList = createAsyncThunk(
     }
   }
 );
+
+export interface IRemoveListArgs {
+  boardId: string | undefined;
+  listId: number;
+}
+
+export interface IRemoveList {
+  result: string;
+}
+
+export const removeList = createAsyncThunk(
+  'list/removeList',
+  async (data: IRemoveListArgs, { dispatch }): Promise<IRemoveList> => {
+    try {
+      const response: IRemoveList = await instance.delete(`board/${data.boardId}/list/${data.listId}`);
+      if (response.result === 'Deleted') {
+        dispatch(fetchBoard(data.boardId));
+      }
+      return response;
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.response) {
+          throw new Error('Response error');
+        } else if (err.request) {
+          throw new Error('Request error');
+        }
+      }
+      throw new Error();
+    }
+  }
+);

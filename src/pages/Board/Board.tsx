@@ -21,8 +21,8 @@ export function Board(): React.ReactElement {
   const { board, status, error } = useAppSelector((state) => state.board);
 
   useEffect(() => {
-    dispatch(fetchBoard(boardId));
     dispatch(getBoardId(boardId || ''));
+    dispatch(fetchBoard(boardId));
   }, [dispatch]);
 
   const [r, g, b] = board?.custom?.color ? hexToRgb(board?.custom?.color) : [0, 0, 0];
@@ -33,13 +33,7 @@ export function Board(): React.ReactElement {
       <nav className="nav-bar">
         <div className="nav-bar__title">
           <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
-          {input && (
-            <TitleInput
-              id={boardId || null}
-              title={board?.title || null}
-              onTitleChanged={(): void => setInput(false)}
-            />
-          )}
+          {input && <TitleInput title={board?.title || null} onTitleChanged={(): void => setInput(false)} />}
         </div>
       </nav>
       <div className="board-loading">
@@ -51,14 +45,15 @@ export function Board(): React.ReactElement {
       </div>
 
       <section className="lists">
-        {/* <CreateList onCreateList={(): void => setListModal(true)} textColor={color} /> */}
         <AddCard onClickHandler={(): void => setListModal(true)} title="Add another list" color={color} height="81px" />
         {listModal && (
           <Modal title="Create list" onClose={(): void => setListModal(false)}>
-            <ListForm id={boardId || ''} onCreateList={(): void => setListModal(false)} />
+            <ListForm onCreateList={(): void => setListModal(false)} />
           </Modal>
         )}
-        {board?.lists?.map((list) => <List key={list.id * Math.random()} list={list} textColor={color} />)}
+        {board?.lists?.map((list) => (
+          <List key={list.id * Math.random()} list={list} textColor={color} boardId={boardId} />
+        ))}
       </section>
       <footer className="footer" />
     </div>

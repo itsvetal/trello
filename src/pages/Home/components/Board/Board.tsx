@@ -3,12 +3,7 @@ import './Board.scss';
 import CloseButton from '../../../../components/CloseButton/CloseButton';
 import { useAppDispatch } from '../../../../hooks/reduxHooks';
 import { removeBoard } from '../../../../store/thunks/boardThunks';
-
-interface IHomeBoard {
-  id: number | undefined;
-  title: string;
-  custom: { description: string } | undefined;
-}
+import { IHomeBoard } from '../../../../common/interfaces/boards';
 
 export function Board({ custom, title, id }: IHomeBoard): React.ReactElement {
   const dispatch = useAppDispatch();
@@ -23,7 +18,7 @@ export function Board({ custom, title, id }: IHomeBoard): React.ReactElement {
   }
 
   const description = getDescription(custom);
-  const onClickHandler = (): void => {
+  const onBoardRemoveHandler = (): void => {
     if (id) {
       dispatch(removeBoard(id));
     }
@@ -31,7 +26,7 @@ export function Board({ custom, title, id }: IHomeBoard): React.ReactElement {
 
   return (
     <div>
-      <CloseButton onClick={onClickHandler} />
+      <CloseButton onClick={onBoardRemoveHandler} />
       <div>
         <h2>{title}</h2>
       </div>

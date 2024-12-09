@@ -5,7 +5,6 @@ export interface IList {
 }
 
 export interface IListForm {
-  id: string;
   onCreateList: () => void;
 }
 
@@ -15,7 +14,7 @@ export interface IPostList {
 
 export interface IPostListArgs {
   item: IList;
-  id: string;
+  id: string | undefined;
 }
 
 export interface IDetailList {
@@ -35,4 +34,5 @@ export interface IDetailList {
     ];
   };
   textColor: string;
+  boardId: string | undefined;
 }

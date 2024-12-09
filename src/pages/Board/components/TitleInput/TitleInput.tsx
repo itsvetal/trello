@@ -4,20 +4,20 @@ import { IPutBoardArgs } from '../../../../common/interfaces/boards';
 import './TitleInput.scss';
 import { validationError } from '../../../../common/constants/errors';
 import Error from '../../../../components/Error/Error';
-import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { putBoard } from '../../../../store/thunks/boardThunks';
 
 interface ITitleInput {
-  id: string | null;
   title: string | null;
   onTitleChanged: () => void;
 }
 
-function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElement {
+function TitleInput({ title, onTitleChanged }: ITitleInput): React.ReactElement {
   const [value, setValue] = useState<string>(title || '');
   const [error, setError] = useState('');
   const focusInputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
+  const { boardId } = useAppSelector((state) => state.board);
 
   useEffect(() => {
     focusInputRef.current?.focus();
@@ -37,7 +37,7 @@ function TitleInput({ id, title, onTitleChanged }: ITitleInput): React.ReactElem
         return;
       }
       const data: IPutBoardArgs = {
-        id: id || '',
+        id: boardId,
         item: {
           title: value,
         },

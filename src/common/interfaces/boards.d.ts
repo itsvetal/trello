@@ -7,6 +7,12 @@ export interface IBoard {
   };
 }
 
+export interface IHomeBoard {
+  id: number | undefined;
+  title: string;
+  custom: { description: string } | undefined;
+}
+
 export interface IBoardForm {
   onCardCreated: () => void;
 }
@@ -30,7 +36,7 @@ export interface IPutBoardArgs {
   item: IDetailBoard;
 }
 
-export interface IDeleteBoard {
+export interface IRemoveBoard {
   result: string;
 }
 

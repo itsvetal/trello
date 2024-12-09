@@ -11,10 +11,10 @@ function Modal({ children, title, onClose }: ModalProps): React.ReactElement {
   return (
     <>
       <div className="modal-backdrop" onClick={(): void => onClose()} />
-      <div className="modal-window">
-        {title ? <p>{title}</p> : null}
+      <fieldset className="modal-window">
+        <legend>{title ? <p>{title}</p> : null}</legend>
         {children}
-      </div>
+      </fieldset>
     </>
   );
 }

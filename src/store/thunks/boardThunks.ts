@@ -2,13 +2,13 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import {
   IBoard,
-  IDeleteBoard,
   IDetailBoard,
   IFetchBoardsResponse,
   IPostBoard,
   IPostBoardArgs,
   IPutBoard,
   IPutBoardArgs,
+  IRemoveBoard,
 } from '../../common/interfaces/boards';
 import instance from '../../api/request';
 import { api } from '../../common/constants';
@@ -53,9 +53,9 @@ export const postBoard = createAsyncThunk(
 
 export const removeBoard = createAsyncThunk(
   'boards/removeBoard',
-  async (id: number, { dispatch }): Promise<IDeleteBoard> => {
+  async (id: number, { dispatch }): Promise<IRemoveBoard> => {
     try {
-      const response: IDeleteBoard = await instance.delete(`/board/${id}`);
+      const response: IRemoveBoard = await instance.delete(`/board/${id}`);
       if (response.result === 'Deleted') {
         dispatch(fetchBoards('/board'));
       }
@@ -81,7 +81,7 @@ export const fetchBoard = createAsyncThunk(
     } catch (err) {
       if (err instanceof AxiosError) {
         if (err.response) {
-          throw new Error(`Wrong board ID: ${id}`);
+          throw new Error(`Board with ID not found: ${id}`);
         } else if (err.request) {
           throw new Error(`Request by URL: ${api.baseURL} is failed`);
         }

@@ -12,6 +12,7 @@
 
 .modal-window {
   position: absolute;
+  z-index: 1;
   top: 20px;
   left: 50%;
   min-width: 300px;
@@ -23,7 +24,6 @@
 }
 
 p {
-  margin-top: 0;
   font-size: 20px;
   font-weight: 600;
   text-wrap: nowrap;

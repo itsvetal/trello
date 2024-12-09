@@ -5,25 +5,25 @@ import Error from '../../../../components/Error/Error';
 import { validationError } from '../../../../common/constants/errors';
 import { IListForm, IPostListArgs } from '../../../../common/interfaces/lists';
 import { postList } from '../../../../store/thunks/listThunks';
-import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 
-function ListForm({ id, onCreateList }: IListForm): React.ReactElement {
+function ListForm({ onCreateList }: IListForm): React.ReactElement {
   const [title, setTitle] = useState('');
-  const [position, setPosition] = useState(0);
+  const [position, setPosition] = useState('0');
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
-
+  const { boardId } = useAppSelector((state) => state.board);
   const titleHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setTitle(event.target.value);
     setError('');
   };
   const positionHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setPosition(+event.target.value);
+    setPosition(event.target.value);
   };
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
-    if (!isValidLetter(title)) {
+    if (!title || !isValidLetter(title)) {
       setError(validationError);
       return;
     }
@@ -31,9 +31,9 @@ function ListForm({ id, onCreateList }: IListForm): React.ReactElement {
     const data: IPostListArgs = {
       item: {
         title,
-        position,
+        position: +position,
       },
-      id,
+      id: boardId,
     };
     dispatch(postList(data));
     onCreateList();
@@ -56,7 +56,7 @@ function ListForm({ id, onCreateList }: IListForm): React.ReactElement {
       <input
         className="form-item"
         placeholder="Enter the list position..."
-        type="number"
+        type="text"
         value={position}
         onChange={positionHandler}
       />
