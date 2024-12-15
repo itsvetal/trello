@@ -10,7 +10,7 @@ import { postBoard } from '../../../../store/thunks/boardThunks';
 
 function BoardForm({ onCardCreated }: IBoardForm): React.ReactElement {
   const [title, setTitle] = useState('');
-  const [info, setInfo] = useState('');
+  const [description, setDescription] = useState('');
   const [color, setColor] = useState('#000000');
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
@@ -25,26 +25,23 @@ function BoardForm({ onCardCreated }: IBoardForm): React.ReactElement {
 
     const data: IPostBoardArgs = {
       path: '/board',
-      item: { title, custom: { description: info, color } },
+      item: { title, custom: { description, color } },
     };
     dispatch(postBoard(data));
     onCardCreated();
   };
 
-  const titleChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setTitle(event.target.value);
-    setError('');
-  };
-
   return (
     <form className="form-items" onSubmit={submitHandler}>
       <input
-        className="form-item"
-        id="board-title"
+        className="form-item-input"
         type="text"
         placeholder="Enter the board name..."
         value={title}
-        onChange={titleChangeHandler}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>): void => {
+          setTitle(event.target.value);
+          setError('');
+        }}
       />
       {error && (
         <div className="error-container">
@@ -52,16 +49,15 @@ function BoardForm({ onCardCreated }: IBoardForm): React.ReactElement {
         </div>
       )}
       <textarea
-        className="form-item"
-        id="board-desc"
+        className="form-item-input"
         placeholder="Enter description"
-        value={info}
-        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => setInfo(event.target.value)}
+        value={description}
+        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>): void => setDescription(event.target.value)}
       />
-      <div className="color-container">
+      <div className="form-item-container">
         <label>Select color:</label>
         <input
-          className="form-item"
+          className="form-item-input"
           type="color"
           value={color}
           onChange={(event: React.ChangeEvent<HTMLInputElement>): void => setColor(event.target.value)}

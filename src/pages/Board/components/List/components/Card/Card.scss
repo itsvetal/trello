@@ -2,7 +2,12 @@
 @use '../../../../../../styles/variables';
 
 .card-container {
-  background-color: variables.$card-bg-color;
+  @include mixin.flex(flex, column, center, center);
   @include mixin.container(5px, 10px, 5px);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+
+  .card-desc {
+    background-color: #fafafa;
+    color: black;
+  }
 }

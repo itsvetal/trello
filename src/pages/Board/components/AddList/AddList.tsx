@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreateList.scss';
+import './AddList.scss';
 import { AddButton } from '../../../../components/AddButton/AddButton';
 
 interface ICreateList {
@@ -7,9 +7,8 @@ interface ICreateList {
   textColor: string;
 }
 
-function CreateList({ onCreateList, textColor }: ICreateList): React.ReactElement {
+function AddList({ onCreateList, textColor }: ICreateList): React.ReactElement {
   const onClickHandler = (): void => {
-    console.log('Click');
     onCreateList();
   };
   return (
@@ -19,4 +18,4 @@ function CreateList({ onCreateList, textColor }: ICreateList): React.ReactElemen
   );
 }
 
-export default CreateList;
+export default AddList;

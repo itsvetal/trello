@@ -6,7 +6,7 @@ input {
   height: 25px;
 }
 
-.color-container {
+.form-item-container {
   display: flex;
   align-items: center;
   width: fit-content;
@@ -27,13 +27,13 @@ input {
   font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
   font-style: normal;
 
-  .form-item {
+  .form-item-input {
     @extend %title-input-style;
     border-radius: 5px;
     border: 1px solid variables.$board-color-1;
   }
 
-  .form-item input {
+  .form-item-input input {
     position: relative;
   }
 }

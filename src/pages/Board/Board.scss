@@ -45,10 +45,14 @@
     }
   }
 
+  section {
+    flex-grow: 1;
+    overflow-x: auto;
+  }
+
   .lists {
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
   }
 }
 

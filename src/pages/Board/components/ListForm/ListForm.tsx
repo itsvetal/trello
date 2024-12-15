@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 
 function ListForm({ onCreateList }: IListForm): React.ReactElement {
   const [title, setTitle] = useState('');
-  const [position, setPosition] = useState('0');
+  const [position, setPosition] = useState(0);
   const [error, setError] = useState('');
   const dispatch = useAppDispatch();
   const { boardId } = useAppSelector((state) => state.board);
@@ -18,7 +18,7 @@ function ListForm({ onCreateList }: IListForm): React.ReactElement {
     setError('');
   };
   const positionHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setPosition(event.target.value);
+    setPosition(+event.target.value);
   };
   const submitHandler = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -42,7 +42,7 @@ function ListForm({ onCreateList }: IListForm): React.ReactElement {
   return (
     <form className="form-items" onSubmit={submitHandler}>
       <input
-        className="form-item"
+        className="form-item-input"
         placeholder="Enter the list name..."
         type="text"
         value={title}
@@ -54,9 +54,9 @@ function ListForm({ onCreateList }: IListForm): React.ReactElement {
         </div>
       )}
       <input
-        className="form-item"
+        className="form-item-input"
         placeholder="Enter the list position..."
-        type="text"
+        type="number"
         value={position}
         onChange={positionHandler}
       />

@@ -30,20 +30,21 @@ export function Board(): React.ReactElement {
 
   return (
     <div className="wrapper" style={{ backgroundColor: board?.custom?.color, color }}>
-      <nav className="nav-bar">
-        <div className="nav-bar__title">
-          <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
-          {input && <TitleInput title={board?.title || null} onTitleChanged={(): void => setInput(false)} />}
+      <header>
+        <nav className="nav-bar">
+          <div className="nav-bar__title">
+            <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
+            {input && <TitleInput title={board?.title || null} onTitleChanged={(): void => setInput(false)} />}
+          </div>
+        </nav>
+        <div className="board-loading">
+          {status === 'loading' && <Loader />}
+          {status === 'failed' && <Error error={error} />}
+          {status === 'resolved' && Array.isArray(board?.lists) && (board?.lists.length || 0) === 0 && (
+            <p>No lists available</p>
+          )}
         </div>
-      </nav>
-      <div className="board-loading">
-        {status === 'loading' && <Loader />}
-        {status === 'failed' && <Error error={error} />}
-        {status === 'resolved' && Array.isArray(board?.lists) && (board?.lists.length || 0) === 0 && (
-          <p>No lists available</p>
-        )}
-      </div>
-
+      </header>
       <section className="lists">
         <AddCard onClickHandler={(): void => setListModal(true)} title="Add another list" color={color} height="81px" />
         {listModal && (

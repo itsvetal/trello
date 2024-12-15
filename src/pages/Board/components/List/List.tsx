@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './List.scss';
 import { Card } from './components/Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';
@@ -7,16 +7,15 @@ import CloseButton from '../../../../components/CloseButton/CloseButton';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { IRemoveListArgs, removeList } from '../../../../store/thunks/listThunks';
 import { IDetailCard } from '../../../../common/interfaces/ICard';
+import Modal from '../../../../components/Modal/Modal';
+import CardForm from './components/CardForm/CardForm';
 
 export function List({ list, textColor }: IDetailList): React.ReactElement {
+  const [cardModal, setCardModal] = useState(false);
   const { boardId } = useAppSelector((state) => state.board);
   const dispatch = useAppDispatch();
-  const onClickHandler = (): void => {
-    console.log('Click');
-  };
-  const onListRemoveHandler = (): void => {
-    console.log('Remove list');
 
+  const onListRemoveHandler = (): void => {
     const data: IRemoveListArgs = {
       boardId,
       listId: list.id,
@@ -32,10 +31,15 @@ export function List({ list, textColor }: IDetailList): React.ReactElement {
       </div>
       <div>
         {list.cards.map((card: IDetailCard) => (
-          <Card title={card.title} key={card.id * Math.random()} />
+          <Card key={card.id * Math.random()} {...card} />
         ))}
       </div>
-      <AddButton onButtonClick={onClickHandler} label="add card" color={textColor} />
+      <AddButton onButtonClick={(): void => setCardModal(true)} label="add card" color={textColor} />
+      {cardModal && (
+        <Modal title="Add card" onClose={(): void => setCardModal(false)}>
+          <CardForm onCardCreated={(): void => setCardModal(false)} listId={list.id} />
+        </Modal>
+      )}
     </div>
   );
 }

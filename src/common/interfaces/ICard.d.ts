@@ -12,3 +12,18 @@ export interface IDetailCard {
   users: number[];
   created_at: number;
 }
+
+export interface IPostCardData {
+  title: string;
+  list_id: number;
+  position: number;
+  description: string;
+  custom: {
+    deadline: string;
+  };
+}
+
+export interface IPostCardArgs {
+  card: IPostCardData;
+  id: string;
+}
