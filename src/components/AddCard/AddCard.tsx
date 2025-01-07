@@ -25,7 +25,7 @@ function AddCard({ onClickHandler, title, color, height }: IAddCard): React.Reac
         >
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
         </svg>
-        <span>{title}</span>
+        <p className="add-card-content__text">{title}</p>
       </div>
     </div>
   );

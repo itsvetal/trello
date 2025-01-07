@@ -3,7 +3,7 @@ import './Board.scss';
 import { useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import TitleInput from './components/TitleInput/TitleInput';
-import Modal from '../../components/Modal/Modal';
+import FormModalWindow from '../../components/FormModalWindow/FormModalWindow';
 import ListForm from './components/ListForm/ListForm';
 import Loader from '../../components/Loader/Loader';
 import Error from '../../components/Error/Error';
@@ -46,11 +46,11 @@ export function Board(): React.ReactElement {
         </div>
       </header>
       <section className="lists">
-        <AddCard onClickHandler={(): void => setListModal(true)} title="Add another list" color={color} height="81px" />
+        <AddCard onClickHandler={(): void => setListModal(true)} title="Add another list" color={color} height="90px" />
         {listModal && (
-          <Modal title="Create list" onClose={(): void => setListModal(false)}>
+          <FormModalWindow title="Create list" onClose={(): void => setListModal(false)}>
             <ListForm onCreateList={(): void => setListModal(false)} />
-          </Modal>
+          </FormModalWindow>
         )}
         {board?.lists?.map((list) => (
           <List key={list.id * Math.random()} list={list} textColor={color} boardId={boardId} />

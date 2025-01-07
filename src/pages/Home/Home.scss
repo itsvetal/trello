@@ -6,10 +6,7 @@
   align-items: center;
   min-height: 100vh;
   @extend %background;
-  @extend %default-font;
-  @extend %h2-font;
   color: #fafafa;
-  text-align: center;
 
   .home-header {
     width: 100%;
@@ -22,7 +19,10 @@
   }
 
   h1 {
-    @extend %h1-font
+    margin: 10px;
+    @extend %h1-font;
+    text-transform: uppercase;
+    font-size: 30px;
   }
 
   a {

@@ -1,5 +1,7 @@
 @use '../../../../../../styles/mixin';
 @use '../../../../../../styles/variables';
+@import '../../../../../../styles/extend';
+
 
 .card-container {
   @include mixin.flex(flex, column, center, center);
@@ -7,6 +9,8 @@
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 
   .card-desc {
+    @include mixin.container(5px, 10px, 5px);
+    @extend %default-font;
     background-color: #fafafa;
     color: black;
   }

@@ -7,7 +7,7 @@ import CloseButton from '../../../../components/CloseButton/CloseButton';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
 import { IRemoveListArgs, removeList } from '../../../../store/thunks/listThunks';
 import { IDetailCard } from '../../../../common/interfaces/ICard';
-import Modal from '../../../../components/Modal/Modal';
+import FormModalWindow from '../../../../components/FormModalWindow/FormModalWindow';
 import CardForm from './components/CardForm/CardForm';
 
 export function List({ list, textColor }: IDetailList): React.ReactElement {
@@ -36,9 +36,9 @@ export function List({ list, textColor }: IDetailList): React.ReactElement {
       </div>
       <AddButton onButtonClick={(): void => setCardModal(true)} label="add card" color={textColor} />
       {cardModal && (
-        <Modal title="Add card" onClose={(): void => setCardModal(false)}>
+        <FormModalWindow title="Add card" onClose={(): void => setCardModal(false)}>
           <CardForm onCardCreated={(): void => setCardModal(false)} listId={list.id} />
-        </Modal>
+        </FormModalWindow>
       )}
     </div>
   );

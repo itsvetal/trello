@@ -21,10 +21,12 @@
   color: white;
   @include mixin.container(10px, 10px, 5px);
   @include mixin.flex(flex, column, unset, center);
+
+  legend {
+    font-family: "Menlo", "Times New Roman", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-wrap: nowrap;
+  }
 }
 
-p {
-  font-size: 20px;
-  font-weight: 600;
-  text-wrap: nowrap;
-}

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Modal.scss';
+import './FormModalWindow.scss';
 
 interface ModalProps {
   children: React.ReactNode;
@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-function Modal({ children, title, onClose }: ModalProps): React.ReactElement {
+function FormModalWindow({ children, title, onClose }: ModalProps): React.ReactElement {
   return (
     <>
       <div className="modal-backdrop" onClick={(): void => onClose()} />
@@ -19,4 +19,4 @@ function Modal({ children, title, onClose }: ModalProps): React.ReactElement {
   );
 }
 
-export default Modal;
+export default FormModalWindow;

@@ -2,15 +2,21 @@
 @import "../../styles/extend";
 
 .add-card-container {
-  position: relative;
   box-sizing: border-box;
   min-width: 250px;
   height: fit-content;
   cursor: pointer;
-  font-size: 24px;
   @extend %container-style;
   @include mixin.container(10px, 5px, 10px);
   @include mixin.flex(flex, column, center, center);
+}
+
+.add-card-content {
+  @include mixin.flex(flex, row, center, center);
+  width: 100%;
+}
+.add-card-content__text {
+  @extend %h2-font;
 }
 
 .add-card-container:hover {
@@ -25,8 +31,4 @@
 
 .add-card-container:active {
   @include mixin.active-button(0, 0, 50px, white, 0, 2px);
-}
-
-.add-card-content {
-  @include mixin.flex(flex, row, center,center);
 }

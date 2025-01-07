@@ -7,19 +7,22 @@
   min-height: 140px;
   cursor: pointer;
   @extend %container-style;
-  @include mixin.container(10px, 5px, 10px);
-  @include mixin.flex(flex, column, center, center);
+  @include mixin.container(10px, 10px, 10px);
+  @include mixin.flex(flex, column, start, start);
 
   div {
     width: 100%;
   }
 
   h2 {
-    margin-top: 0;
+    margin-block: 0 10px;
+    @extend %h2-font;
   }
 
   p {
-    font-size: 16px;
+    margin: 0;
+    font-size: 22px;
+    @extend %default-font;
   }
 }
 

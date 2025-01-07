@@ -5,7 +5,7 @@ import './Home.scss';
 import './components/Board/Board.scss';
 import AddCard from '../../components/AddCard/AddCard';
 import { IBoard } from '../../common/interfaces/boards';
-import Modal from '../../components/Modal/Modal';
+import FormModalWindow from '../../components/FormModalWindow/FormModalWindow';
 import BoardForm from './components/BoardForm/BoardForm';
 import { hexToRgb } from '../../utils/colorUtils';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
@@ -51,9 +51,9 @@ export function Home(): React.ReactElement {
         })}
       </section>
       {modal && (
-        <Modal title="Create Board" onClose={(): void => setModal(false)}>
+        <FormModalWindow title="Create Board" onClose={(): void => setModal(false)}>
           <BoardForm onCardCreated={(): void => setModal(false)} />
-        </Modal>
+        </FormModalWindow>
       )}
       <footer className="home-footer" />
     </div>
