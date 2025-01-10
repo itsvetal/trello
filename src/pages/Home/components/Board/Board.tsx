@@ -25,10 +25,10 @@ export function Board({ custom, title, id }: IHomeBoard): React.ReactElement {
   };
 
   return (
-    <div>
-      <CloseButton onClick={onBoardRemoveHandler} />
-      <div>
+    <div className="home-board-content">
+      <div className="home-board-content__title">
         <h2>{title}</h2>
+        <CloseButton onClick={onBoardRemoveHandler} />
       </div>
       <div>
         <p>{description}</p>

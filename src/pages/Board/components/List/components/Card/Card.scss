@@ -7,11 +7,18 @@
   @include mixin.flex(flex, column, center, center);
   @include mixin.container(5px, 10px, 5px);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  cursor: pointer;
 
-  .card-desc {
-    @include mixin.container(5px, 10px, 5px);
+  &:active {
+    @include mixin.active-button(0, 0, 0, transparent, 1px, 1px);
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
     @extend %default-font;
-    background-color: #fafafa;
-    color: black;
   }
 }

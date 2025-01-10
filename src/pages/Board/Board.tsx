@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Board.scss';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { List } from './components/List/List';
 import TitleInput from './components/TitleInput/TitleInput';
 import FormModalWindow from '../../components/FormModalWindow/FormModalWindow';
@@ -36,6 +36,9 @@ export function Board(): React.ReactElement {
             <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
             {input && <TitleInput title={board?.title || null} onTitleChanged={(): void => setInput(false)} />}
           </div>
+          <Link className="nav-bar__home-link" to="/">
+            Home
+          </Link>
         </nav>
         <div className="board-loading">
           {status === 'loading' && <Loader />}
@@ -46,9 +49,14 @@ export function Board(): React.ReactElement {
         </div>
       </header>
       <section className="lists">
-        <AddCard onClickHandler={(): void => setListModal(true)} title="Add another list" color={color} height="90px" />
+        <AddCard
+          onClickHandler={(): void => setListModal(true)}
+          title="Add another list"
+          color={color}
+          height="100px"
+        />
         {listModal && (
-          <FormModalWindow title="Create list" onClose={(): void => setListModal(false)}>
+          <FormModalWindow title="Create list" closeModal={(): void => setListModal(false)}>
             <ListForm onCreateList={(): void => setListModal(false)} />
           </FormModalWindow>
         )}

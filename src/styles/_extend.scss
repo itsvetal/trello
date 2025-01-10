@@ -4,13 +4,16 @@
 
 %default-font {
   font-family: "Cormorant", 'Times New Roman', 'Tahoma', sans-serif;
-  font-style: italic;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
 }
 
 %h1-font {
   font-family: "Vollkorn","Times New Roman", "Tahoma", cursive;
   font-weight: 800;
+  text-transform: uppercase;
+  font-size: 20px;
 }
 
 %h2-font {
@@ -31,7 +34,7 @@
   background-position: center;
 }
 
-%container-style {
+%container-shadow {
   box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.5);
 }
 

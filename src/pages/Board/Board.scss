@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  text-shadow: 1px 1px 1px black;
 
   .board-loading {
     text-align: center;
@@ -13,8 +14,6 @@
 
   h1 {
     @extend %h1-font;
-    font-size: 30px;
-    text-transform: uppercase;
     margin: 10px;
   }
 
@@ -27,18 +26,30 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    padding-inline: 10px;
     background-color: rgba(255, 255, 255, 0.3);
-    @extend %container-style;
+    @extend %container-shadow;
 
-    .nav-bar__title {
+    &__title {
       position: relative;
-      margin-left: 10px;
+      cursor: text;
 
       h1 {
         margin: 5px 0;
       }
     }
+
+    &__home-link {
+      color: #fff;
+      @extend %h1-font;
+      text-transform: uppercase;
+      font-size: 20px;
+      @include mixin.flex(flex, row, center, center);
+    }
+  }
+
+  a {
+    text-decoration: none;
   }
 
   section {

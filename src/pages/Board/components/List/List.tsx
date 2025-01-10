@@ -24,19 +24,19 @@ export function List({ list, textColor }: IDetailList): React.ReactElement {
   };
 
   return (
-    <div className="list-container">
-      <CloseButton onClick={onListRemoveHandler} />
-      <div className="list-title">
+    <div className="list">
+      <div className="list__title">
         <h2>{list.title}</h2>
+        <CloseButton onClick={onListRemoveHandler} />
       </div>
-      <div>
+      <div className="list__cards">
         {list.cards.map((card: IDetailCard) => (
           <Card key={card.id * Math.random()} {...card} />
         ))}
       </div>
       <AddButton onButtonClick={(): void => setCardModal(true)} label="add card" color={textColor} />
       {cardModal && (
-        <FormModalWindow title="Add card" onClose={(): void => setCardModal(false)}>
+        <FormModalWindow title="Add card" closeModal={(): void => setCardModal(false)}>
           <CardForm onCardCreated={(): void => setCardModal(false)} listId={list.id} />
         </FormModalWindow>
       )}

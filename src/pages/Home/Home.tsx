@@ -25,7 +25,7 @@ export function Home(): React.ReactElement {
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1>Мої дошки</h1>
+        <h1>My boards</h1>
         {status === 'loading' && <Loader />}
         {status === 'failed' && <Error error={error} />}
         {status === 'resolved' && list.length === 0 && <p>No boards available</p>}
@@ -51,7 +51,7 @@ export function Home(): React.ReactElement {
         })}
       </section>
       {modal && (
-        <FormModalWindow title="Create Board" onClose={(): void => setModal(false)}>
+        <FormModalWindow title="Create Board" closeModal={(): void => setModal(false)}>
           <BoardForm onCardCreated={(): void => setModal(false)} />
         </FormModalWindow>
       )}
