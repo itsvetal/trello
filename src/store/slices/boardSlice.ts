@@ -19,6 +19,12 @@ const boardSlice = createSlice({
         boardId: action.payload,
       };
     },
+    clearBoard(state) {
+      return {
+        ...state,
+        board: null,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBoard.pending, (state) => {
@@ -43,4 +49,4 @@ const boardSlice = createSlice({
 });
 
 export default boardSlice.reducer;
-export const { getBoardId } = boardSlice.actions;
+export const { getBoardId, clearBoard } = boardSlice.actions;

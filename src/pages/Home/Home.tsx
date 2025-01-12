@@ -9,13 +9,12 @@ import FormModalWindow from '../../components/FormModalWindow/FormModalWindow';
 import BoardForm from './components/BoardForm/BoardForm';
 import { hexToRgb } from '../../utils/colorUtils';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import Error from '../../components/Error/Error';
 import { fetchBoards } from '../../store/thunks/boardThunks';
-import Loader from '../../components/Loader/Loader';
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
 
 export function Home(): React.ReactElement {
   const dispatch = useAppDispatch();
-  const { list, status, error } = useAppSelector((state) => state.boards);
+  const { list, status } = useAppSelector((state) => state.boards);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -25,11 +24,13 @@ export function Home(): React.ReactElement {
   return (
     <div className="home-container">
       <header className="home-header">
-        <h1>My boards</h1>
-        {status === 'loading' && <Loader />}
-        {status === 'failed' && <Error error={error} />}
+        <nav className="home-header__nav">
+          <h1>My boards</h1>
+        </nav>
+        {status !== 'failed' && <ProgressBar />}
         {status === 'resolved' && list.length === 0 && <p>No boards available</p>}
       </header>
+
       <section className="home-section">
         <AddCard onClickHandler={(): void => setModal(true)} title="Додати дошку" color="white" height="140px" />
         {list.map((board: IBoard) => {

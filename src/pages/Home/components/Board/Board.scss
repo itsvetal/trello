@@ -1,10 +1,12 @@
 @use "src/styles/_mixin";
 @import "src/styles/extend";
+
 .home-board {
   position: relative;
   box-sizing: border-box;
   width: 250px;
   min-height: 140px;
+  height: fit-content;
   cursor: pointer;
   @extend %container-shadow;
   @include mixin.container(10px, 10px, 10px);

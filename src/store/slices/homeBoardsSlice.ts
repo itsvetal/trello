@@ -5,7 +5,6 @@ import { fetchBoards, postBoard } from '../thunks/boardThunks';
 const initialState: IHomeBoardsSlice = {
   list: [],
   status: '',
-  error: '',
 };
 
 const homeBoardsSlice = createSlice({
@@ -17,7 +16,6 @@ const homeBoardsSlice = createSlice({
       return {
         ...state,
         status: 'loading',
-        error: '',
       };
     });
     builder.addCase(fetchBoards.fulfilled, (state, action) => {
@@ -27,18 +25,16 @@ const homeBoardsSlice = createSlice({
         list: action.payload,
       };
     });
-    builder.addCase(fetchBoards.rejected, (state, action) => {
+    builder.addCase(fetchBoards.rejected, (state) => {
       return {
         ...state,
         status: 'failed',
-        error: action.error.message || 'Something went wrong',
       };
     });
-    builder.addCase(postBoard.rejected, (state, action) => {
+    builder.addCase(postBoard.rejected, (state) => {
       return {
         ...state,
         status: 'failed',
-        error: action.error.message || 'Something went wrong',
       };
     });
   },

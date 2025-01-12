@@ -47,7 +47,6 @@ export interface IFetchBoardsResponse {
 export interface IHomeBoardsSlice {
   list: IBoard[];
   status: string;
-  error: string;
 }
 
 export interface IBoardSlice {

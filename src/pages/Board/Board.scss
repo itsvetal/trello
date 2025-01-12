@@ -2,13 +2,21 @@
 @use "../../styles/variables";
 @import "../../styles/extend";
 
+header, section {
+  width: 100%;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
   text-shadow: 1px 1px 1px black;
+  background-color: #f2f2f2;
+  color: black;
 
   .board-loading {
+    @include mixin.flex(flex, column, center, center);
     text-align: center;
   }
 
@@ -28,7 +36,7 @@
     justify-content: space-between;
     padding-inline: 10px;
     background-color: rgba(255, 255, 255, 0.3);
-    @extend %container-shadow;
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);
 
     &__title {
       position: relative;
@@ -45,6 +53,10 @@
       text-transform: uppercase;
       font-size: 20px;
       @include mixin.flex(flex, row, center, center);
+    }
+
+    &__home-link:hover {
+      color: chartreuse;
     }
   }
 

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 import {
   IBoard,
   IDetailBoard,
@@ -11,20 +11,21 @@ import {
   IRemoveBoard,
 } from '../../common/interfaces/boards';
 import instance from '../../api/request';
-import { api } from '../../common/constants';
+import { handleAxiosError } from '../../api/handleAxiosErr';
 
 export const fetchBoards = createAsyncThunk('boards/fetchBoards', async (path: string): Promise<IBoard[]> => {
+  const toastId = toast.loading('Loading...');
   try {
     const response: IFetchBoardsResponse = await instance.get(path);
+    toast.update(toastId, {
+      render: 'Boards loaded',
+      type: 'success',
+      isLoading: false,
+      autoClose: 2000,
+    });
     return response.boards;
   } catch (err) {
-    if (err instanceof AxiosError) {
-      if (err.response) {
-        throw new Error(`Wrong route: ${path}`);
-      } else if (err.request) {
-        throw new Error(`Request by URL: ${api.baseURL} is failed`);
-      }
-    }
+    handleAxiosError(err, toastId);
     throw new Error();
   }
 });
@@ -32,20 +33,21 @@ export const fetchBoards = createAsyncThunk('boards/fetchBoards', async (path: s
 export const postBoard = createAsyncThunk(
   'boards/postBoard',
   async (data: IPostBoardArgs, { dispatch }): Promise<IPostBoard> => {
+    const toastId = toast.loading('Loading...');
     try {
       const response: IPostBoard = await instance.post(data.path, data.item);
       if (response.result === 'Created') {
+        toast.update(toastId, {
+          render: 'Board created',
+          type: 'success',
+          isLoading: false,
+          autoClose: 2000,
+        });
         dispatch(fetchBoards('/board'));
       }
       return response;
     } catch (err) {
-      if (err instanceof AxiosError) {
-        if (err.response) {
-          throw new Error('Response error');
-        } else if (err.request) {
-          throw new Error('Request error');
-        }
-      }
+      handleAxiosError(err, toastId);
       throw new Error();
     }
   }
@@ -54,20 +56,21 @@ export const postBoard = createAsyncThunk(
 export const removeBoard = createAsyncThunk(
   'boards/removeBoard',
   async (id: number, { dispatch }): Promise<IRemoveBoard> => {
+    const toastId = toast.loading('Loading...');
     try {
       const response: IRemoveBoard = await instance.delete(`/board/${id}`);
       if (response.result === 'Deleted') {
+        toast.update(toastId, {
+          render: 'Board deleted',
+          type: 'success',
+          isLoading: false,
+          autoClose: 2000,
+        });
         dispatch(fetchBoards('/board'));
       }
       return response;
     } catch (err) {
-      if (err instanceof AxiosError) {
-        if (err.response) {
-          throw new Error('Response error');
-        } else if (err.request) {
-          throw new Error('Request error');
-        }
-      }
+      handleAxiosError(err, toastId);
       throw new Error();
     }
   }
@@ -76,16 +79,18 @@ export const removeBoard = createAsyncThunk(
 export const fetchBoard = createAsyncThunk(
   'board/fetchBoard',
   async (id: string | undefined): Promise<IDetailBoard> => {
+    const toastId = toast.loading('Loading...');
     try {
-      return await instance.get(`board/${id}`);
+      const response: IDetailBoard = await instance.get(`board/${id}`);
+      toast.update(toastId, {
+        render: 'Board loaded',
+        type: 'success',
+        isLoading: false,
+        autoClose: 2000,
+      });
+      return response;
     } catch (err) {
-      if (err instanceof AxiosError) {
-        if (err.response) {
-          throw new Error(`Board with ID not found: ${id}`);
-        } else if (err.request) {
-          throw new Error(`Request by URL: ${api.baseURL} is failed`);
-        }
-      }
+      handleAxiosError(err, toastId);
       throw new Error();
     }
   }
@@ -94,20 +99,21 @@ export const fetchBoard = createAsyncThunk(
 export const putBoard = createAsyncThunk(
   'board/putBoard',
   async (data: IPutBoardArgs, { dispatch }): Promise<IPutBoard> => {
+    const toastId = toast.loading('Loading...');
     try {
       const response: IPutBoard = await instance.put(`/board/${data.id}`, data.item);
       if (response.result === 'Updated') {
+        toast.update(toastId, {
+          render: 'Board updated',
+          type: 'success',
+          isLoading: false,
+          autoClose: 2000,
+        });
         dispatch(fetchBoard(data.id));
       }
       return response;
     } catch (err) {
-      if (err instanceof AxiosError) {
-        if (err.response) {
-          throw new Error('Response error');
-        } else if (err.request) {
-          throw new Error('Request error');
-        }
-      }
+      handleAxiosError(err, toastId);
       throw new Error();
     }
   }
