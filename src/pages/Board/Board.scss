@@ -2,23 +2,31 @@
 @use "../../styles/variables";
 @import "../../styles/extend";
 
+header, section {
+  width: 100%;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
   min-height: 100vh;
-  @extend %background;
-  @extend %default-font;
+  text-shadow: 1px 1px 1px black;
+  background-color: #f2f2f2;
+  color: black;
+
+  .board-loading {
+    @include mixin.flex(flex, column, center, center);
+    text-align: center;
+  }
 
   h1 {
     @extend %h1-font;
+    margin: 10px;
   }
 
   h2 {
     @extend %h2-font;
-  }
-
-  span {
-    @extend %span-font;
   }
 
   .nav-bar {
@@ -26,24 +34,44 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    padding-inline: 10px;
     background-color: rgba(255, 255, 255, 0.3);
-    @extend %container-style;
+    box-shadow: 0 5px 6px rgba(0, 0, 0, 0.5);
 
-    .nav-bar__title {
-      color: white;
-      margin-left: 10px;
+    &__title {
+      position: relative;
+      cursor: text;
 
       h1 {
         margin: 5px 0;
       }
     }
+
+    &__home-link {
+      color: #fff;
+      @extend %h1-font;
+      text-transform: uppercase;
+      font-size: 20px;
+      @include mixin.flex(flex, row, center, center);
+    }
+
+    &__home-link:hover {
+      color: chartreuse;
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  section {
+    flex-grow: 1;
+    overflow-x: auto;
   }
 
   .lists {
     display: flex;
     flex-direction: row;
-    overflow-x: auto;
   }
 }
 

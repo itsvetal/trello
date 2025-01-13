@@ -1,4 +1,8 @@
+@import "src/styles/extend";
+
 .error-text {
-  color: red;
-  margin: 0;
+  @extend %title-input-error;
+  font-size: 14px;
+  text-wrap: wrap;
+  margin: 5px;
 }

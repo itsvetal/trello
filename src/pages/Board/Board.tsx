@@ -1,89 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Board.scss';
-import { useParams } from 'react-router-dom';
-import { AxiosError } from 'axios';
+import { Link, useParams } from 'react-router-dom';
 import { List } from './components/List/List';
-import { IList } from '../../common/interfaces/IList';
 import TitleInput from './components/TitleInput/TitleInput';
-import CreateList from './components/CreateList/CreateList';
-import { IDetailBoard } from '../../common/interfaces/IBoards';
-import instance from '../../api/request';
+import FormModalWindow from '../../components/FormModalWindow/FormModalWindow';
+import ListForm from './components/ListForm/ListForm';
+import { hexToRgb } from '../../utils/colorUtils';
+import AddCard from '../../components/AddCard/AddCard';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
+import { fetchBoard } from '../../store/thunks/boardThunks';
+import { clearBoard, getBoardId } from '../../store/slices/boardSlice';
 
 export function Board(): React.ReactElement {
-  const boardTitle = 'Моя тестова дошка';
-  const boardLists = [
-    {
-      id: 1,
-      title: 'Плани',
-      cards: [
-        { id: 1, title: 'помити кота' },
-        { id: 2, title: 'приготувати суп' },
-        { id: 3, title: 'сходити в магазин' },
-      ],
-    },
-    {
-      id: 2,
-      title: 'В процесі',
-      cards: [{ id: 4, title: 'подивитися серіал' }],
-    },
-    {
-      id: 3,
-      title: 'Зроблено',
-      cards: [
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-        { id: 5, title: 'зробити домашку' },
-        { id: 6, title: 'погуляти з собакой' },
-      ],
-    },
-  ];
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [title, setTitle] = useState(boardTitle);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [lists, setLists] = useState<IList[]>(boardLists);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [input, setInput] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [listModal, setListModal] = useState(false);
   const { boardId } = useParams();
+  const dispatch = useAppDispatch();
+  const { board, status } = useAppSelector((state) => state.board);
 
-  const getBoard = async (): Promise<IDetailBoard> => {
-    try {
-      return await instance.get(`board/${boardId}`);
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        throw new Error(err?.response?.data);
-      } else if (err instanceof Error) {
-        throw new Error(err.message);
-      }
-    }
-    throw new Error('Error getting single board');
-  };
+  useEffect(() => {
+    dispatch(clearBoard());
+    dispatch(getBoardId(boardId || ''));
+    dispatch(fetchBoard(boardId));
+  }, [dispatch]);
 
-  getBoard().then((data) => {
-    console.log(data);
-  });
+  const [r, g, b] = board?.custom?.color ? hexToRgb(board?.custom?.color) : [0, 0, 0];
+  const color = r >= 200 && g >= 200 && b >= 200 ? 'black' : `white`;
 
   return (
-    <div className="wrapper">
-      <nav className="nav-bar">
-        <div className="nav-bar__title">
-          <h1 onClick={(): void => setInput(true)}>{`${title}`}</h1>
-          {input && <TitleInput id={boardId ? +boardId : null} title={title} />}
-        </div>
-      </nav>
-      <section className="lists">
-        {lists.map((list) => (
-          <List key={list.id * Math.random()} title={list.title} cards={list.cards} />
-        ))}
-        <CreateList />
-      </section>
-      <footer className="footer" />
+    <div className="wrapper" style={{ backgroundColor: board?.custom?.color, color }}>
+      {status === 'resolved' && (
+        <>
+          <header>
+            <nav className="nav-bar">
+              <div className="nav-bar__title">
+                <h1 onClick={(): void => setInput(true)}>{board?.title}</h1>
+                {input && <TitleInput title={board?.title || null} onTitleChanged={(): void => setInput(false)} />}
+              </div>
+              <Link className="nav-bar__home-link" to="/">
+                Home
+              </Link>
+            </nav>
+            <div className="board-loading">
+              {status === 'resolved' && Array.isArray(board?.lists) && (board?.lists.length || 0) === 0 && (
+                <p>No lists available</p>
+              )}
+            </div>
+          </header>
+          <section className="lists">
+            <AddCard
+              onClickHandler={(): void => setListModal(true)}
+              title="Add another list"
+              color={color}
+              height="100px"
+            />
+            {listModal && (
+              <FormModalWindow title="Create list" closeModal={(): void => setListModal(false)}>
+                <ListForm onCreateList={(): void => setListModal(false)} />
+              </FormModalWindow>
+            )}
+            {board?.lists?.map((list) => (
+              <List key={list.id * Math.random()} list={list} textColor={color} boardId={boardId} />
+            ))}
+          </section>
+          <footer className="footer" />
+        </>
+      )}
     </div>
   );
 }

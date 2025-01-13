@@ -5,11 +5,24 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  @include mixin.configure-button(transparent, black, 0, 0, 0, transparent);
+  @include mixin.configure-button(transparent, unset, 0, 0, 0, transparent);
   @extend %span-font;
+  text-shadow: 1px 1px 1px black;
+
+  svg {
+    fill: #ffffff;
+  }
 
   &:active {
     @include mixin.active-button(0, 0, 0, transparent, 1px, 1px);
   }
+
+}
+
+.add-button:hover {
+    color: chartreuse;
+    svg {
+      fill: chartreuse;
+    }
 }
 

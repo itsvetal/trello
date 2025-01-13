@@ -1,3 +1,19 @@
+@use "src/styles/mixin";
+
 .close-button {
-  position: absolute;
+  position: relative;
+  @include mixin.configure-button(transparent, transparent, 0, 0, 0,0);
+  @include mixin.flex(flex, row, center, center);
+  padding: 0;
+
+  svg {
+    width: 100%;
+    height: auto;
+    fill: #ffffff;
+  }
+
+  svg:hover {
+    fill: red;
+    stroke: red;
+  }
 }

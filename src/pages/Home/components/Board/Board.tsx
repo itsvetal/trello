@@ -1,17 +1,12 @@
 import React from 'react';
 import './Board.scss';
 import CloseButton from '../../../../components/CloseButton/CloseButton';
-import { deleteBoard } from '../../../../api/board/deleteBoard';
-import { IDeleteBoard } from '../../../../common/interfaces/IDeleteBoard';
+import { useAppDispatch } from '../../../../hooks/reduxHooks';
+import { removeBoard } from '../../../../store/thunks/boardThunks';
+import { IHomeBoard } from '../../../../common/interfaces/boards';
 
-interface IHomeBoard {
-  onClose: (message: string) => void;
-  id: number | undefined;
-  title: string;
-  custom: { description: string } | undefined;
-}
-
-export function Board({ onClose, custom, title, id }: IHomeBoard): React.ReactElement {
+export function Board({ custom, title, id }: IHomeBoard): React.ReactElement {
+  const dispatch = useAppDispatch();
   function getDescription(customObj: { [key: string]: string } | undefined): string | null {
     if (customObj) {
       const key = Object.keys(customObj).find((element: string) => element === 'description');
@@ -23,22 +18,17 @@ export function Board({ onClose, custom, title, id }: IHomeBoard): React.ReactEl
   }
 
   const description = getDescription(custom);
-  const onCloseHandler = (): void => {
-    console.log('Close button clicked');
+  const onBoardRemoveHandler = (): void => {
     if (id) {
-      deleteBoard(id.toString()).then((data: IDeleteBoard) => {
-        if (data.result === 'Deleted') {
-          console.log('Board deleted');
-          onClose(data.result);
-        }
-      });
+      dispatch(removeBoard(id));
     }
   };
+
   return (
-    <div>
-      <CloseButton onClick={onCloseHandler} />
-      <div>
+    <div className="home-board-content">
+      <div className="home-board-content__title">
         <h2>{title}</h2>
+        <CloseButton onClick={onBoardRemoveHandler} />
       </div>
       <div>
         <p>{description}</p>

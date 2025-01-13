@@ -1,39 +1,40 @@
 @use './_variables';
 @use './mixin';
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
 
 %default-font {
   font-family: "Cormorant", 'Times New Roman', 'Tahoma', sans-serif;
-  font-style: italic;
-  font-weight: bold;
-  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
 }
 
 %h1-font {
   font-family: "Vollkorn","Times New Roman", "Tahoma", cursive;
-  font-size: 35px;
   font-weight: 800;
+  text-transform: uppercase;
+  font-size: 20px;
 }
 
 %h2-font {
-  font-family: "Vollkorn","Times New Roman", "Tahoma", cursive;
-  font-style: italic;
-  font-size: 16px;
+  font-family: "Playfair Display", "Times New Roman", "Tahoma", sans-serif;
+  font-style: normal;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 20px;
 }
 
 %span-font {
   font-family: "ABeeZee", "Times New Roman", "Tahoma", sans-serif;
-  font-size: 16px;
 }
 
 %background {
   background-image: linear-gradient(to bottom right, variables.$board-color-1, variables.$board-color-2, variables.$board-color-3, variables.$board-color-4);
+  //background-color: #FBCBBF;
   background-size: cover;
   background-position: center;
 }
 
-%container-style {
+%container-shadow {
   box-shadow: 3px 5px 6px rgba(0, 0, 0, 0.5);
 }
 
@@ -41,16 +42,12 @@
   display: flex;
   flex-direction: column;
   align-items: start;
-  margin:0 5px 10px 0;
-  font-size: 16px;
-  font-weight: 600;
+  margin:5px 0;
+
 }
 
 %title-input-error {
-  position: absolute;
-  top: 30px;
-  text-wrap: nowrap;
-  left: 7px;
+  color: red;
   font-family: "Times New Roman", sans-serif;
   font-style: normal;
   font-weight: 400;

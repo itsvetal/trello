@@ -1,0 +1,20 @@
+.title-input {
+  position: absolute;
+  top: 5px;
+  border-radius: 5px;
+  border: 1px solid blue;
+  height: 60%;
+  width: 100%;
+  font-size: larger;
+}
+
+.title-error-container {
+  position: absolute;
+  top: 98%;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid black;
+  width: 80%;
+  box-sizing: border-box;
+}
+

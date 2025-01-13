@@ -1,24 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './List.scss';
-import { ListProps } from '../../../../common/interfaces/ListProps';
-import { Card } from '../Card/Card';
+import { Card } from './components/Card/Card';
 import { AddButton } from '../../../../components/AddButton/AddButton';
+import { IDetailList } from '../../../../common/interfaces/lists';
+import CloseButton from '../../../../components/CloseButton/CloseButton';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import { IRemoveListArgs, removeList } from '../../../../store/thunks/listThunks';
+import { IDetailCard } from '../../../../common/interfaces/ICard';
+import FormModalWindow from '../../../../components/FormModalWindow/FormModalWindow';
+import CardForm from './components/CardForm/CardForm';
 
-export function List({ title, cards }: ListProps): React.ReactElement {
-  const onClickHandler = (): void => {
-    console.log('Click');
+export function List({ list, textColor }: IDetailList): React.ReactElement {
+  const [cardModal, setCardModal] = useState(false);
+  const { boardId } = useAppSelector((state) => state.board);
+  const dispatch = useAppDispatch();
+
+  const onListRemoveHandler = (): void => {
+    const data: IRemoveListArgs = {
+      boardId,
+      listId: list.id,
+    };
+    dispatch(removeList(data));
   };
+
   return (
-    <div className="list-container">
-      <div className="list-title">
-        <h2>{title}</h2>
+    <div className="list">
+      <div className="list__title">
+        <h2>{list.title}</h2>
+        <CloseButton onClick={onListRemoveHandler} />
       </div>
-      <div>
-        {cards.map((card) => (
-          <Card title={card.title} key={card.id * Math.random()} />
+      <div className="list__cards">
+        {list.cards.map((card: IDetailCard) => (
+          <Card key={card.id * Math.random()} {...card} />
         ))}
       </div>
-      <AddButton onClick={onClickHandler} label="add cart" />
+      <AddButton onButtonClick={(): void => setCardModal(true)} label="add card" color={textColor} />
+      {cardModal && (
+        <FormModalWindow title="Add card" closeModal={(): void => setCardModal(false)}>
+          <CardForm onCardCreated={(): void => setCardModal(false)} listId={list.id} />
+        </FormModalWindow>
+      )}
     </div>
   );
 }
