@@ -1,22 +1,37 @@
 @use "src/styles/_mixin";
 @import "src/styles/extend";
+
 .home-board {
   position: relative;
   box-sizing: border-box;
   width: 250px;
   min-height: 140px;
+  height: fit-content;
   cursor: pointer;
-  @extend %container-style;
-  @include mixin.container(10px, 5px, 10px);
-  @include mixin.flex(flex, column, center, center);
+  @extend %container-shadow;
+  @include mixin.container(10px, 10px, 10px);
+  @include mixin.flex(flex, column, start, start);
 
   div {
     width: 100%;
   }
 
+  h2 {
+    margin-block: 0 10px;
+    @extend %h2-font;
+  }
+
   p {
-    margin-top: 0;
-    font-size: 16px;
+    margin: 0;
+    @extend %default-font;
+  }
+}
+
+.home-board-content {
+  @include mixin.flex(flex, column, start, start);
+
+  &__title {
+    @include mixin.flex(flex, row, space-between, start);
   }
 }
 
@@ -28,6 +43,3 @@
   @include mixin.active-button(0, 0, 50px, white, 0, 2px);
 }
 
-.home-board__content {
-  @include mixin.flex(flex, row, center,center);
-}

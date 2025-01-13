@@ -1,0 +1,79 @@
+@use "mixin";
+@use "variables";
+@import "extend";
+
+input {
+  height: 25px;
+}
+
+.form-item-container {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  font-size: 14px;
+  font-weight: normal;
+  cursor: pointer;
+
+  span {
+    margin-right: 10px;
+  }
+}
+
+.form-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  width: 100%;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+  font-style: normal;
+
+  .form-item-input {
+    @extend %title-input-style;
+    border-radius: 5px;
+    border: 1px solid variables.$board-color-1;
+  }
+
+  .form-item-input input {
+    position: relative;
+  }
+}
+
+.form-button {
+  @include mixin.configure-button(rgba(255, 255, 255, 0.1),
+          white, 5px, 0, 2px, rgba(0, 0, 0, 0.7));
+  @include mixin.container(5px, 5px, 5px);
+  font-size: 14px;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+  font-weight: 600;
+  text-shadow: 1px 1px 1px black;
+}
+
+.form-button:active {
+  @include mixin.active-button(0, 0, 0, transparent, 0, 2px);
+}
+
+.form-button:hover {
+  background-color: #005e99;
+}
+
+::-webkit-input-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+}
+
+:-moz-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+
+}
+
+::-moz-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+
+}
+
+:-ms-input-placeholder {
+  color: black;
+  font-family: 'Menlo', 'Times New Roman', 'Tahoma', sans-serif ;
+}

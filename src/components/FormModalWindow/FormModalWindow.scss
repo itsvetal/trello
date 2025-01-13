@@ -1,0 +1,23 @@
+@use "../../styles/mixin";
+@use "src/styles/variables";
+
+.modal-window {
+  position: absolute;
+  z-index: 1;
+  top: 20px;
+  left: 50%;
+  min-width: 300px;
+  transform: translate(-50%);
+  background-color: variables.$board-color-1;
+  color: white;
+  @include mixin.container(10px, 10px, 5px);
+  @include mixin.flex(flex, column, unset, center);
+
+  legend {
+    font-family: "Menlo", "Times New Roman", sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-wrap: nowrap;
+  }
+}
+

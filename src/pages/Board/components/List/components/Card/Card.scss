@@ -1,0 +1,24 @@
+@use '../../../../../../styles/mixin';
+@use '../../../../../../styles/variables';
+@import '../../../../../../styles/extend';
+
+
+.card-container {
+  @include mixin.flex(flex, column, center, center);
+  @include mixin.container(5px, 10px, 5px);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  cursor: pointer;
+
+  &:active {
+    @include mixin.active-button(0, 0, 0, transparent, 1px, 1px);
+  }
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    @extend %default-font;
+  }
+}

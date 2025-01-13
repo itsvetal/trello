@@ -1,54 +1,70 @@
-import React, { useState } from 'react';
-import { isValid } from '../../../../utils/isValid';
-import { IBoard } from '../../../../common/interfaces/IBoards';
-import { putBoard } from '../../../../api/board/putBoard';
+import React, { useEffect, useRef, useState } from 'react';
+import { isValidLetter } from '../../../../utils/isValidLetter';
+import { IPutBoardArgs } from '../../../../common/interfaces/boards';
+import './TitleInput.scss';
+import { validationError } from '../../../../common/constants/errors';
+import Error from '../../../../components/Error/Error';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/reduxHooks';
+import { putBoard } from '../../../../store/thunks/boardThunks';
 
 interface ITitleInput {
-  id: number | null;
-  title: string;
+  title: string | null;
+  onTitleChanged: () => void;
 }
 
-function TitleInput({ id, title }: ITitleInput): React.ReactElement {
-  const [value, setValue] = useState(title);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+function TitleInput({ title, onTitleChanged }: ITitleInput): React.ReactElement {
+  const [value, setValue] = useState<string>(title || '');
   const [error, setError] = useState('');
+  const focusInputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
+  const { boardId } = useAppSelector((state) => state.board);
+
+  useEffect(() => {
+    focusInputRef.current?.focus();
+  }, []);
+
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setValue(event.target.value);
-  };
-  const eventHandler = (event: React.FocusEvent<HTMLInputElement>): void => {
-    if (event.type === 'blur') {
-      console.log('Blur');
-    }
-
-    if (isValid(value)) {
-      setError('Please enter a value');
-      return;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const data: IBoard = {
-      title: value,
-    };
-
-    putBoard(id?.toString(), data).then((res) => console.log('Result: ', res.result));
+    setError('');
   };
 
-  const KeyDownHandler = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === 'Enter') {
-      console.log('Enter');
+  const onDataEnteredHandler = (
+    event: React.FocusEvent<HTMLInputElement> | React.KeyboardEvent<HTMLInputElement>
+  ): void => {
+    if (event.type === 'blur' || (event.type === 'keydown' && 'key' in event && event.key === 'Enter')) {
+      if (!value || !isValidLetter(value)) {
+        setError(validationError);
+        return;
+      }
+      const data: IPutBoardArgs = {
+        id: boardId,
+        item: {
+          title: value,
+        },
+      };
+      dispatch(putBoard(data));
+      onTitleChanged();
     }
   };
+
   return (
-    <div>
+    <>
+      {error && (
+        <div className="title-error-container">
+          <Error error={error} />
+        </div>
+      )}
       <input
+        className="title-input"
         placeholder="Введіть назву дошки"
         value={value}
         onChange={onChangeHandler}
-        onBlur={eventHandler}
-        onKeyDown={KeyDownHandler}
+        onBlur={onDataEnteredHandler}
+        onKeyDown={onDataEnteredHandler}
         type="text"
+        ref={focusInputRef}
       />
-    </div>
+    </>
   );
 }
 

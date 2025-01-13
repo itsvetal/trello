@@ -3,14 +3,24 @@ import './addButton.scss';
 
 interface AddButtonProps {
   label: string;
-  onClick: () => void;
+  onButtonClick: () => void;
+  color: string;
 }
 
-export function AddButton({ label, onClick }: AddButtonProps): React.ReactElement {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function AddButton({ label, onButtonClick, color }: AddButtonProps): React.ReactElement {
   return (
     <div>
-      <button className="add-button" onClick={(): void => onClick()}>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+      <button className="add-button" onClick={(): void => onButtonClick()}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#5f6368"
+          stroke="#000"
+          strokeWidth="10px"
+        >
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
         </svg>
         <div>
